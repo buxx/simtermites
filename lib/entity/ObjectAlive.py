@@ -5,12 +5,13 @@ class ObjectAlive(Object):
   
   trace = None
   length = None
+  brain = None
   
-  def __init__(self, pos, length):
+  def __init__(self, brain, pos, length):
     
     Object.__init__(self)
     
-    # On itinialise la trace
+    self.brain = brain
     self.trace = deque()
     self.length = length
     
