@@ -1,3 +1,4 @@
 class Wait(object):
-  def __init__(self):
-    avar = ''
+  
+  def do(self, simulation):
+    return

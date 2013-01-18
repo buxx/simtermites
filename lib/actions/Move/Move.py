@@ -12,6 +12,9 @@ class Move(object):
     self.brain = brain
     self.determineDirection()
   
+  def do(self, simulation):
+    simulation.mover.move(self.brain.host, self)
+  
   def determineDirection(self):
     
     if self.takeSameDirection():

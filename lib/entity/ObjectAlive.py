@@ -24,4 +24,6 @@ class ObjectAlive(Object):
   def updateTrace(self, pos):
     self.trace.appendleft(pos)
     del self.trace[self.length]
-    
+  
+  def think(self):
+    self.brain.think()

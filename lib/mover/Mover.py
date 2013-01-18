@@ -11,16 +11,10 @@ class Mover(object):
   def __init__(self, screen):
     self.screen = screen
   
-  def move(self, object_to_move):
-    
-    # TODO: L'appel vers la rfeflexion du brain devra etre ailleur,
-    # ici on ne regardera que si l'action en cours est un deplacement
-    # TODO: Attention, si on sort de la carte on fait un boucle infinie avec movePixel la
-    action = object_to_move.brain.think()
-    if (isinstance(action, Move)):
-      self.uncolorizePixel(object_to_move.trace[object_to_move.length-1])
-      object_to_move.updateTrace(self.movePixel(object_to_move.trace[0], action.direction))
-      self.colorizePixel(object_to_move.trace[0])
+  def move(self, object_to_move, move):
+    self.uncolorizePixel(object_to_move.trace[object_to_move.length-1])
+    object_to_move.updateTrace(self.movePixel(object_to_move.trace[0], move.direction))
+    self.colorizePixel(object_to_move.trace[0])
   
   def uncolorizePixel(self, position):
     self.changePixel(position, self.color_black)

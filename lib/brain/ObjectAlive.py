@@ -10,18 +10,17 @@ class ObjectAlive(Brain):
     move
   """
   move_wait_probability = None
+  action = None
   
   def __init__(self, host):
     Brain.__init__(self, host)
     
   def think(self):
-    """
-      TODO: Le choix de l'action doit etre en fonction du contexte,
-      pour le moment il n'y a que Move.
-    """
+    #TODO: Le choix de l'action doit etre en fonction du contexte, pour le moment il n'y a que Move.
     if (self.moveButTakeWait()):
-      return Wait()
-    return self.getMoveObject();
+      self.action = Wait()
+    else:
+      self.action = self.getMoveObject();
     
   def getMoveObject(self):
     raise Exception("Cette methode doit etre implemente par un objet enfant")

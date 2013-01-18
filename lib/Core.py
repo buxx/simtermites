@@ -28,3 +28,6 @@ class Core(object):
   
   def initialyze_event_manager(self):
     self.event_manager = EventManager(self)
+    
+  def updateDisplay(self):
+    self.pygame.display_update()
