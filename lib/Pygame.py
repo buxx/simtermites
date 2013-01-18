@@ -16,6 +16,7 @@ class Pygame(object):
   
   screen = None
   clock = None
+  event = None
   
   def __init__(self):
     pygame.init()
@@ -27,6 +28,7 @@ class Pygame(object):
     self.screen.blit(background, (0, 0))
     pygame.display.flip()
     self.clock = pygame.time.Clock()
+    self.event = pygame.event
   
   def display_update(self):
     pygame.display.update()
