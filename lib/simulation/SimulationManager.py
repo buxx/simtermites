@@ -1,7 +1,7 @@
 from lib.entity.bug.termite.Worker import Worker as TermiteWorker
 from config.Configuration import Configuration
 from lib.simulation.TermitesSimulator import TermitesSimulator
-from lib.mover.Mover import Mover
+from lib.ground.connector.Mover import Mover
 
 class SimulationManager(object):
   
@@ -12,8 +12,9 @@ class SimulationManager(object):
   def __init__(self, Core):
     self.core = Core
     self.mover = Mover(self.core.pygame.screen)
-    
-    # TODO: deplacer cette generation des termutes dans un initialiseur ou truc comme ca
+    self.initializeBugs()
+  
+  def initializeBugs(self):
     termites_count = 1
     termites = []
     while termites_count <= Configuration.CONF_TERMITES_COUNT:
