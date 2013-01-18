@@ -1,7 +1,8 @@
-from lib.entity.bug.termite.Worker import Worker as TermiteWorker
 from config.Configuration import Configuration
 from lib.simulation.TermitesSimulator import TermitesSimulator
 from lib.ground.connector.Mover import Mover
+from lib.entity.bug.termite.Worker import Worker as TermiteWorker
+from lib.entity.bug.termite.Queen import Queen as TermiteQueen
 
 class SimulationManager(object):
   
@@ -20,6 +21,7 @@ class SimulationManager(object):
     while termites_count <= Configuration.CONF_TERMITES_COUNT:
       termites.append(TermiteWorker((320, 240)))
       termites_count = termites_count+1
+    termites.append(TermiteQueen((320, 240)))
     
     self.termites_simulator = TermitesSimulator(self, termites)
   

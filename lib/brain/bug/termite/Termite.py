@@ -1,6 +1,7 @@
 from lib.brain.bug.Bug import Bug
 from lib.actions.Move.Termite import Termite as TermiteMove
 from config.Configuration import Configuration
+from lib.actions.Wait import Wait
 
 class Termite(Bug):
   
@@ -11,3 +12,6 @@ class Termite(Bug):
   
   def getMoveObject(self):
     return TermiteMove(self)
+  
+  def getWaitObject(self):
+    return Wait(self)

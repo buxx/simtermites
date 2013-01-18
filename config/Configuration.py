@@ -20,5 +20,6 @@ class Configuration(object):
     Lorsque on utilise une proba sur SAME_WAY les virages sont plus casses
   """
   TERMITE_MOVE_WAIT_PROBABILITY = [2, 10]
+  TERMITE_QUEEN_MOVE_WAIT_PROBABILITY = [99, 100]
   TERMITE_MOVE_DIRECTION_SAME_WAY_PROBABILITY = [1, 1]
   TERMITE_MOVING_SAME_WAY_SLIGHTLY_TURN_PROBABILITY = [1, 2]

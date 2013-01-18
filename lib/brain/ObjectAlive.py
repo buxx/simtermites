@@ -1,6 +1,5 @@
 from lib.brain.Brain import Brain
 import random
-from lib.actions.Wait import Wait
 
 class ObjectAlive(Brain):
   
@@ -18,11 +17,14 @@ class ObjectAlive(Brain):
   def think(self):
     #TODO: Le choix de l'action doit etre en fonction du contexte, pour le moment il n'y a que Move.
     if (self.moveButTakeWait()):
-      self.action = Wait()
+      self.action = self.getWaitObject();
     else:
       self.action = self.getMoveObject();
     
   def getMoveObject(self):
+    raise Exception("Cette methode doit etre implemente par un objet enfant")
+    
+  def getWaitObject(self):
     raise Exception("Cette methode doit etre implemente par un objet enfant")
   
   def moveButTakeWait(self):
