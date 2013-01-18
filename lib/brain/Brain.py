@@ -1,3 +1,6 @@
 class Brain(object):
-  def __init__(self):
-    avar = ''
+  
+  host = None
+  
+  def __init__(self, host):
+    self.host = host

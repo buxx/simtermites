@@ -36,24 +36,24 @@ class Mover(object):
     x = pos[0]
     y = pos[1]
     
+    if direction == 0:
+      x = x+1
     if direction == 1:
       x = x+1
+      y = y+1
     if direction == 2:
-      x = x+1
       y = y+1
     if direction == 3:
+      x = x-1
       y = y+1
     if direction == 4:
       x = x-1
-      y = y+1
     if direction == 5:
       x = x-1
+      y = y-1
     if direction == 6:
-      x = x-1
       y = y-1
     if direction == 7:
-      y = y-1
-    if direction == 8:
       x = x+1
       y = y-1
     

@@ -4,6 +4,7 @@ from collections import deque
 class ObjectAlive(Object):
   
   trace = None
+  last_direction = None
   length = None
   brain = None
   
@@ -23,3 +24,4 @@ class ObjectAlive(Object):
   def updateTrace(self, pos):
     self.trace.appendleft(pos)
     del self.trace[self.length]
+    

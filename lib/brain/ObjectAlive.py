@@ -1,11 +1,9 @@
 from lib.brain.Brain import Brain
-from lib.actions.Move import Move
 
 class ObjectAlive(Brain):
   
-  def __init__(self):
-    Brain.__init__(self)
+  def __init__(self, host):
+    Brain.__init__(self, host)
     
   def think(self):
-    # Pour le moment on ne pense qu'a se deplacer
-    return Move()
+    raise Exception("Cette methode doit etre implemente par un objet enfant")

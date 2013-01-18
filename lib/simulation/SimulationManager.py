@@ -14,7 +14,7 @@ class SimulationManager(object):
     termites = 1
     self.termites = []
     while termites <= Configuration.CONF_TERMITES_COUNT:
-      self.termites.append(TermiteWorker((20, 20)))
+      self.termites.append(TermiteWorker((320, 240)))
       termites = termites+1
     self.mover = Mover(self.core.pygame.screen)
   
@@ -23,4 +23,5 @@ class SimulationManager(object):
       self.mover.move(termite)
       
     self.core.pygame.display_update()
-    self.core.pygame.clock.tick(25)
+    if (Configuration.CONF_CLOCK_TICK):
+      self.core.pygame.clock.tick(Configuration.CONF_CLOCK_TICK)
