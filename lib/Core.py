@@ -3,12 +3,6 @@ from lib.Pygame import Pygame
 from lib.simulation.SimulationManager import SimulationManager
 from lib.interaction.EventManager import EventManager
 
-# TODO: Utiliser de vrai constantes (cf google)
-CONF_WINDOWS_NAME = 'Termites Simulator'
-CONF_SCREEN_WIDTH = 640
-CONF_SCREEN_HEIGHT = 480
-CONF_TERMITES_COUNT = 1000
-
 class Core(object):
   """"""
   

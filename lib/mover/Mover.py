@@ -1,10 +1,5 @@
 import random
-
-# TODO: Utiliser de vrai constantes (cf google)
-CONF_WINDOWS_NAME = 'Termites Simulator'
-CONF_SCREEN_WIDTH = 640
-CONF_SCREEN_HEIGHT = 480
-CONF_TERMITES_COUNT = 1000
+from config.Configuration import Configuration
 
 class Mover(object):
   """"""
@@ -49,7 +44,7 @@ class Mover(object):
       x = x+1
       y = y-1
     
-    if x < 0 or y < 0 or x > CONF_SCREEN_WIDTH or y > CONF_SCREEN_HEIGHT:
+    if x < 0 or y < 0 or x > Configuration.CONF_SCREEN_WIDTH or y > Configuration.CONF_SCREEN_HEIGHT:
       return self.movePixel(pos)
     else:
       return (int(x), int(y))

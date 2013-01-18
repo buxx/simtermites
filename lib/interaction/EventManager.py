@@ -13,5 +13,5 @@ class EventManager(object):
   def listenAndPropagate(self):
     for event in self.core.pygame.event.get():
       if event.type == QUIT:
-        return false
+        return False
     return True

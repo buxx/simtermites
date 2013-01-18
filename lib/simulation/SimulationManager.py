@@ -1,11 +1,6 @@
 from lib.mover.Mover import Mover
 from lib.entity.bug.termite.Worker import Worker as TermiteWorker
-
-# TODO: Utiliser de vrai constantes (cf google)
-CONF_WINDOWS_NAME = 'Termites Simulator'
-CONF_SCREEN_WIDTH = 640
-CONF_SCREEN_HEIGHT = 480
-CONF_TERMITES_COUNT = 1000
+from config.Configuration import Configuration
 
 class SimulationManager(object):
   
@@ -18,7 +13,7 @@ class SimulationManager(object):
     self.core = Core
     termites = 1
     self.termites = []
-    while termites <= CONF_TERMITES_COUNT:
+    while termites <= Configuration.CONF_TERMITES_COUNT:
       self.termites.append(TermiteWorker((20, 20)))
       termites = termites+1
     self.mover = Mover(self.core.pygame.screen)
