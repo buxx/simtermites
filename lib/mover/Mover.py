@@ -1,5 +1,5 @@
 from config.Configuration import Configuration
-from lib.actions.Move import Move
+from lib.actions.Move.Move import Move
 
 class Mover(object):
   """"""
