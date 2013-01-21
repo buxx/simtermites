@@ -22,10 +22,9 @@ class SimulationManager(object):
     self.termites_simulator = TermitesSimulator(self, [])
     termites_count = 1
     while termites_count <= Configuration.CONF_TERMITES_COUNT:
-      pos = (320, 240)
-      self.placer.place(pos, TermiteWorker(pos))
+      self.placer.place((320, 240), TermiteWorker())
       termites_count = termites_count+1
-    self.placer.place((320, 240), TermiteQueen((320, 240)))
+    self.placer.place((320, 240), TermiteQueen())
   
   def runCycle(self):
     self.termites_simulator.runActions()

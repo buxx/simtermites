@@ -8,19 +8,20 @@ class ObjectAlive(Object):
   length = None
   brain = None
   
-  def __init__(self, brain, pos, length):
+  def __init__(self, brain, length):
     
     Object.__init__(self)
     
     self.brain = brain
     self.trace = deque()
     self.length = length
-    
+   
+  def initializePosition(self, position):
     i = 1
     while i <= self.length:
-      self.trace.appendleft(pos)
+      self.trace.appendleft(position)
       i = i+1
-      
+    
   def updateTrace(self, pos):
     self.trace.appendleft(pos)
     del self.trace[self.length]

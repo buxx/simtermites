@@ -5,9 +5,9 @@ class Queen(Termite):
   
   color = 255, 0, 0
   
-  def __init__(self, pos):
+  def __init__(self):
     brain = QueenBrain(self)
-    Termite.__init__(self, brain, pos, 6)
+    Termite.__init__(self, brain, 6)
     
   def getLayPosition(self):
     position_last = self.getLastPosition()

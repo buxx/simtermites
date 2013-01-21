@@ -5,5 +5,5 @@ class Larva(Termite):
   
   color = 255, 255, 255
   
-  def __init__(self, pos):
-    Termite.__init__(self, LarvaBrain(self), pos, 1)
+  def __init__(self):
+    Termite.__init__(self, LarvaBrain(self), 1)

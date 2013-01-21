@@ -4,5 +4,5 @@ class Termite(Bug):
   
   color = 255, 240, 200
   
-  def __init__(self, brain, pos, length):
-    Bug.__init__(self, brain, pos, length)
+  def __init__(self, brain, length):
+    Bug.__init__(self, brain, length)

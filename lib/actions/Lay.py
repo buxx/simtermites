@@ -6,8 +6,7 @@ class Lay(object):
   
   def __init__(self, brain):
     self.brain = brain
-    # TODO: La position doit etre mise dans les objectalive par le Placer
-    self.egg  = Larva((320, 240))
+    self.egg  = Larva()
   
   def do(self, simulation):
     simulation.placer.place(self.brain.host.getLayPosition(), self.egg)
