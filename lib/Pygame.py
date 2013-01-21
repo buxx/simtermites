@@ -1,5 +1,6 @@
 import sys
 from config.Configuration import Configuration
+from lib.ground.Colorizer import Colorizer
 try:
   import pygame
   from pygame.locals import *
@@ -10,6 +11,7 @@ except ImportError, err:
 class Pygame(object):
   
   screen = None
+  colorizer = None
   clock = None
   event = None
   
@@ -24,6 +26,7 @@ class Pygame(object):
     pygame.display.flip()
     self.clock = pygame.time.Clock()
     self.event = pygame.event
+    self.colorizer = Colorizer(self.screen)
   
   def display_update(self):
     pygame.display.update()

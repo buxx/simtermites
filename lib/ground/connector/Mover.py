@@ -2,12 +2,12 @@ from config.Configuration import Configuration
 
 class Mover(object):
   """"""
-  screen = None
+  simulation = None
   # TODO: Valeurs temporaires, ca dependra du terrain, de la bestioles etc
   color_black = 0, 0, 0
   
-  def __init__(self, screen):
-    self.screen = screen
+  def __init__(self, simulation):
+    self.simulation = simulation
   
   def move(self, object_to_move, move):
     if (move.direction != None):
@@ -20,7 +20,7 @@ class Mover(object):
     self.colorizePixel(position, self.color_black)
     
   def colorizePixel(self, position, color):
-    self.screen.set_at(position, color)
+    self.simulation.core.pygame.colorizer.colorizePixel(position, color)
   
   
   def movePixel(self, pos, direction):

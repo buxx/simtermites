@@ -14,8 +14,8 @@ class SimulationManager(object):
   
   def __init__(self, Core):
     self.core = Core
-    self.mover = Mover(self.core.pygame.screen)
-    self.placer = Placer(self.core.pygame.screen, self)
+    self.mover = Mover(self)
+    self.placer = Placer(self)
     self.initializeBugs()
   
   def initializeBugs(self):
