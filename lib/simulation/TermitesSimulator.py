@@ -9,5 +9,5 @@ class TermitesSimulator(object):
   
   def runActions(self):
     for termite in self.termites:
-      termite.think()
-      termite.brain.action.do(self.simulation)
+      termite.think(self.simulation)
+      termite.doAction(self.simulation)

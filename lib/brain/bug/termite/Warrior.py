@@ -5,6 +5,6 @@ class Warrior(Termite):
   def __init__(self, host):
     Termite.__init__(self, host)
   
-  def getAction(self):
+  def getAction(self, simulation):
     # Actions d'une gerrieres
     return None

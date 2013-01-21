@@ -1,4 +1,3 @@
-from lib.ground.connector.Mover import Mover
 from lib.Pygame import Pygame
 from lib.simulation.SimulationManager import SimulationManager
 from lib.interaction.EventManager import EventManager

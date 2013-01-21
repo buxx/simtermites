@@ -14,8 +14,8 @@ class ObjectAlive(Brain):
   def __init__(self, host):
     Brain.__init__(self, host)
     
-  def think(self):
-    action = self.getAction()
+  def think(self, simulation):
+    action = self.getAction(simulation)
     if not action:
       if (self.moveButTakeWait()):
         self.action = self.getWaitObject();
@@ -30,7 +30,7 @@ class ObjectAlive(Brain):
   def getWaitObject(self):
     raise Exception("Cette methode doit etre implemente par un objet enfant")
   
-  def getAction(self):
+  def getAction(self, simulation):
     raise Exception("Cette methode doit etre implemente par un objet enfant")
   
   def moveButTakeWait(self):

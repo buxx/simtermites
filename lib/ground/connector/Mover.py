@@ -12,7 +12,7 @@ class Mover(object):
   def move(self, object_to_move, move):
     if (move.direction != None):
       self.uncolorizePixel(object_to_move.trace[object_to_move.length-1])
-      object_to_move.updateTrace(self.movePixel(object_to_move.trace[0], move.direction))
+      object_to_move.updateTrace(self.movePixel(object_to_move.getPosition(), move.direction))
     for position_trace in object_to_move.trace:
       self.colorizePixel(position_trace, object_to_move.color)
   

@@ -5,5 +5,5 @@ class King(Termite):
   def __init__(self, host):
     Termite.__init__(self, host)
   
-  def getAction(self):
+  def getAction(self, simulation):
     return None
