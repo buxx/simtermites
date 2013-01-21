@@ -27,3 +27,9 @@ class ObjectAlive(Object):
   
   def think(self):
     self.brain.think()
+    
+  def getLastPosition(self):
+    return self.trace[self.length-1]
+    
+  def getBeforeLastPosition(self):
+    return self.trace[self.length-2]

@@ -4,3 +4,7 @@ class King(Termite):
   
   def __init__(self, host):
     Termite.__init__(self, host)
+  
+  def getAction(self):
+    # TODO: Actiosn du roi
+    return None

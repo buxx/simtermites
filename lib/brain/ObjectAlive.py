@@ -15,16 +15,22 @@ class ObjectAlive(Brain):
     Brain.__init__(self, host)
     
   def think(self):
-    #TODO: Le choix de l'action doit etre en fonction du contexte, pour le moment il n'y a que Move.
-    if (self.moveButTakeWait()):
-      self.action = self.getWaitObject();
+    action = self.getAction()
+    if not action:
+      if (self.moveButTakeWait()):
+        self.action = self.getWaitObject();
+      else:
+        self.action = self.getMoveObject();
     else:
-      self.action = self.getMoveObject();
+      self.action = action
     
   def getMoveObject(self):
     raise Exception("Cette methode doit etre implemente par un objet enfant")
     
   def getWaitObject(self):
+    raise Exception("Cette methode doit etre implemente par un objet enfant")
+  
+  def getAction(self):
     raise Exception("Cette methode doit etre implemente par un objet enfant")
   
   def moveButTakeWait(self):

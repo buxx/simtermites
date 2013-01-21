@@ -1,6 +1,7 @@
 from config.Configuration import Configuration
 from lib.simulation.TermitesSimulator import TermitesSimulator
 from lib.ground.connector.Mover import Mover
+from lib.ground.connector.Placer import Placer
 from lib.entity.bug.termite.Worker import Worker as TermiteWorker
 from lib.entity.bug.termite.Queen import Queen as TermiteQueen
 
@@ -9,21 +10,22 @@ class SimulationManager(object):
   core = None
   termites_simulator = None
   mover = None
+  placer = None
   
   def __init__(self, Core):
     self.core = Core
     self.mover = Mover(self.core.pygame.screen)
+    self.placer = Placer(self.core.pygame.screen, self)
     self.initializeBugs()
   
   def initializeBugs(self):
+    self.termites_simulator = TermitesSimulator(self, [])
     termites_count = 1
-    termites = []
     while termites_count <= Configuration.CONF_TERMITES_COUNT:
-      termites.append(TermiteWorker((320, 240)))
+      pos = (320, 240)
+      self.placer.place(pos, TermiteWorker(pos))
       termites_count = termites_count+1
-    termites.append(TermiteQueen((320, 240)))
-    
-    self.termites_simulator = TermitesSimulator(self, termites)
+    self.placer.place((320, 240), TermiteQueen((320, 240)))
   
   def runCycle(self):
     self.termites_simulator.runActions()

@@ -3,8 +3,8 @@ class Configuration(object):
   CONF_WINDOWS_NAME = 'Termites Simulator'
   CONF_SCREEN_WIDTH = 640
   CONF_SCREEN_HEIGHT = 480
-  CONF_TERMITES_COUNT = 1000
-  CONF_CLOCK_TICK = 25
+  CONF_TERMITES_COUNT = 2
+  CONF_CLOCK_TICK = None
   
   """
     Deplacement des termites:
@@ -23,3 +23,5 @@ class Configuration(object):
   TERMITE_QUEEN_MOVE_WAIT_PROBABILITY = [99, 100]
   TERMITE_MOVE_DIRECTION_SAME_WAY_PROBABILITY = [1, 1]
   TERMITE_MOVING_SAME_WAY_SLIGHTLY_TURN_PROBABILITY = [1, 2]
+  """ La rein pond un eouf tous les x cycles """
+  TERMITE_QUEEN_LAY_EACH_CYCLE = 50
