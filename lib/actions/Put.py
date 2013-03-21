@@ -7,7 +7,7 @@ class Put(object):
     self.host = host
     self.good = good
 
-  def do(self, simulation):
+  def do(self, termite_simulation):
     self.good.setCarriedByNone(self.host)
     self.host.object_carried = None
-    simulation.core.pygame.colorizer.colorizePixel(self.good.position, self.good.color)
+    termite_simulation.simulation.core.pygame.colorizer.colorizePixel(self.good.position, self.good.color)

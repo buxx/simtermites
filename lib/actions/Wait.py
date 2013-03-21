@@ -6,5 +6,5 @@ class Wait(object):
   def __init__(self, brain):
     self.brain = brain
     
-  def do(self, simulation):
-    simulation.mover.move(self.brain.host, self)
+  def do(self, termite_simulation):
+    termite_simulation.simulation.mover.move(self.brain.host, self)

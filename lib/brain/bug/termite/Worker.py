@@ -12,6 +12,7 @@ class Worker(Termite):
     # TODO: il faudra passer un tableau de types d'objet
     # pour ne faire cette demande qu'une seule fois
     larva_near = simulation.findObjectNearPosition('Larva', self.host.getPosition(), 1, False)
+    #larva_near = None
     if larva_near != None:
 
       if self.host.object_carried == None:

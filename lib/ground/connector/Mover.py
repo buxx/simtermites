@@ -49,6 +49,6 @@ class Mover(object):
       y = y-1
     
     if x < 0 or y < 0 or x > Configuration.CONF_SCREEN_WIDTH or y > Configuration.CONF_SCREEN_HEIGHT:
-      return (320, 240)
+      return (Configuration.CONF_SCREEN_WIDTH_MIDDLE, Configuration.CONF_SCREEN_HEIGHT_MIDDLE)
     else:
       return (int(x), int(y))

@@ -19,3 +19,47 @@ def positions_near(position_ref, position_to_compare, distance, allow_same_posit
   position_to_compare_y == position_y+distance):
     return True
   return False
+
+def get_near_coordonates_for_position(position_ref, distance, allow_same_position = False):
+  
+  for distance_i in range(1,distance+1):
+    coordonates = \
+    [
+      [
+        position_ref[0]-distance_i,
+        position_ref[1]-distance_i
+      ],
+      [
+        position_ref[0],
+        position_ref[1]-distance_i
+      ],
+      [
+        position_ref[0]+distance_i,
+        position_ref[1]-distance_i
+      ],
+      [
+        position_ref[0]+distance_i,
+        position_ref[1]
+      ],
+      [
+        position_ref[0]+distance_i,
+        position_ref[1]+distance_i
+      ],
+      [
+        position_ref[0],
+        position_ref[1]+distance_i
+      ],
+      [
+        position_ref[0]-distance_i,
+        position_ref[1]+distance_i
+      ],
+      [
+        position_ref[0]-distance_i,
+        position_ref[1]
+      ],
+    ]
+  
+  if allow_same_position:
+    coordonates.append(position_ref)
+  
+  return coordonates
