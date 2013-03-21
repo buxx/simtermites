@@ -10,12 +10,16 @@ class ObjectAlive(Brain):
   """
   move_wait_probability = None
   action = None
+  action_forced_class = None
+  action_forced_cycles = 0
   
   def __init__(self, host):
     Brain.__init__(self, host)
     
   def think(self, simulation):
-    action = self.getAction(simulation)
+    action = self.getActionIfHaveForcedAction()
+    if not action:
+      action = self.getAction(simulation)
     if not action:
       if (self.moveButTakeWait()):
         self.action = self.getWaitObject();
@@ -39,3 +43,15 @@ class ObjectAlive(Brain):
       return True
     return False
   
+  def addForcedAction(self, forced_action_class, forced_cycles):
+    self.action_forced_class = forced_action_class
+    self.action_forced_cycles = forced_cycles
+  
+  def getActionIfHaveForcedAction(self):
+    if self.action_forced_class:
+      self.action_forced_cycles = self.action_forced_cycles-1
+      if self.action_forced_cycles < 1:
+        self.action_forced_class = None
+      # TODO: Pour le moment c'est forced l objet action !
+      return self.getMoveObject()
+    return None

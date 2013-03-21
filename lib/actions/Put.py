@@ -11,3 +11,5 @@ class Put(object):
     self.good.setCarriedByNone(self.host)
     self.host.object_carried = None
     termite_simulation.simulation.core.pygame.colorizer.colorizePixel(self.good.position, self.good.color)
+    # on dit a la termite de ne pas prendre de larve pendant un moment
+    self.host.brain.addForcedAction('Move', 55)
