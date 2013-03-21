@@ -4,7 +4,7 @@ from collections import deque
 
 class Larva(Termite):
 
-  color = 255, 255, 255
+  color = 255, 0, 0
   
   def __init__(self):
     Termite.__init__(self, LarvaBrain(self), 1)

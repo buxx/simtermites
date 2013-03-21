@@ -3,7 +3,7 @@ from lib.brain.bug.termite.Queen import Queen as QueenBrain
 
 class Queen(Termite):
 
-  color = 255, 0, 0
+  color = 255, 198, 35
   
   def __init__(self):
     brain = QueenBrain(self)

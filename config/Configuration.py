@@ -1,12 +1,12 @@
 class Configuration(object):
   
   CONF_WINDOWS_NAME = 'Termites Simulator'
-  CONF_SCREEN_WIDTH = 640
-  CONF_SCREEN_WIDTH_MIDDLE = 320
-  CONF_SCREEN_HEIGHT = 480
-  CONF_SCREEN_HEIGHT_MIDDLE = 240
+  CONF_SCREEN_WIDTH = 320
+  CONF_SCREEN_WIDTH_MIDDLE = 160
+  CONF_SCREEN_HEIGHT = 240
+  CONF_SCREEN_HEIGHT_MIDDLE = 120
   CONF_TERMITES_COUNT = 300
-  CONF_CLOCK_TICK = 25 # None is allowed
+  CONF_CLOCK_TICK = None # None is allowed
   
   """
     Deplacement des termites:
