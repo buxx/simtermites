@@ -1,6 +1,7 @@
 from lib.Pygame import Pygame
 from lib.simulation.SimulationManager import SimulationManager
 from lib.interaction.EventManager import EventManager
+from lib.tool.Satistics import Statistics
 
 class Core(object):
   """"""
@@ -8,11 +9,13 @@ class Core(object):
   pygame = None
   simulation = None
   event_manager = None
+  statistics = None
   
   def start(self):
     
     self.initialize_pygame()
     self.initialyze_event_manager()
+    self.statistics = Statistics()
     self.initialyze_simulation()
     
     run_simulation = True

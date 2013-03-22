@@ -14,6 +14,7 @@ class Pygame(object):
   colorizer = None
   clock = None
   event = None
+  default_font = None
   
   def __init__(self):
     pygame.init()
@@ -27,6 +28,13 @@ class Pygame(object):
     self.clock = pygame.time.Clock()
     self.event = pygame.event
     self.colorizer = Colorizer(self.screen)
+    self.default_font = pygame.font.SysFont("arial", 11)
   
   def display_update(self):
     pygame.display.update()
+  
+  def draw_rect(self, color, data, thickness):
+    pygame.draw.rect(self.screen, color, data, thickness)
+  
+  def getLabel(self, text, color = (255,255,0)):
+    return self.default_font.render(text, 1, color)

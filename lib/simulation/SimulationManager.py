@@ -14,6 +14,9 @@ class SimulationManager(object):
   placer = None
   zones = {}
   
+  # TODO: bien place le system de compteur de stats ?
+  statistics_display_counter = 25
+  
   objects_positions_grid = {}
   objects_positions_grid_previous_cycle = {}
   
@@ -29,11 +32,14 @@ class SimulationManager(object):
     while termites_count <= Configuration.CONF_TERMITES_COUNT_WORKER_NOWORK:
       self.placer.place((Configuration.CONF_SCREEN_WIDTH_MIDDLE, Configuration.CONF_SCREEN_HEIGHT_MIDDLE), TermiteWorker())
       termites_count = termites_count+1
+      self.core.statistics.increaseData('Worker')
     termites_count = 0
     while termites_count <= Configuration.CONF_TERMITES_COUNT_WORKER_NURSING:
       self.placer.place((Configuration.CONF_SCREEN_WIDTH_MIDDLE, Configuration.CONF_SCREEN_HEIGHT_MIDDLE), TermiteWorker('Nursing'))
       termites_count = termites_count+1
+      self.core.statistics.increaseData('Worker')
     self.placer.place((Configuration.CONF_SCREEN_WIDTH_MIDDLE, Configuration.CONF_SCREEN_HEIGHT_MIDDLE), TermiteQueen('Queening'))
+    self.core.statistics.increaseData('Queen')
   
   def runCycle(self):
     # On clean les coordonees
@@ -42,8 +48,17 @@ class SimulationManager(object):
     
     self.termites_simulator.runActions()
     self.core.updateDisplay()
+    self.updateStatisticsIfCount()
+    
     if (Configuration.CONF_CLOCK_TICK):
       self.core.pygame.clock.tick(Configuration.CONF_CLOCK_TICK)
+  
+  def updateStatisticsIfCount(self):
+    if self.statistics_display_counter == 0:
+      self.core.statistics.updateDisplay(self.core.pygame)
+      self.statistics_display_counter = 25
+    else:
+      self.statistics_display_counter = self.statistics_display_counter-1
   
   def addObjectPositionInGrid(self, object):
     
