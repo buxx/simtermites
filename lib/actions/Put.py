@@ -1,15 +1,17 @@
-class Put(object):
+from lib.actions.Action import Action
+class Put(Action):
 
   good = None
   host = None
 
-  def __init__(self, host, good):
+  def __init__(self, simulation, brain, host, good):
+    Action.__init__(self, simulation, brain)
     self.host = host
     self.good = good
 
-  def do(self, termite_simulation):
+  def do(self):
     self.good.setCarriedByNone(self.host)
     self.host.object_carried = None
-    termite_simulation.simulation.core.pygame.colorizer.colorizePixel(self.good.position, self.good.color)
+    self.simulation.core.pygame.colorizer.colorizePixel(self.good.position, self.good.color)
     # on dit a la termite de ne pas prendre de larve pendant un moment
     self.host.brain.addForcedAction('Move', 55)

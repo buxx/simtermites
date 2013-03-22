@@ -15,4 +15,4 @@ class Queen(Termite):
       self.cycles_since_lay = self.cycles_since_lay+1
     else:
       self.cycles_since_lay = 0
-      return Lay(self)
+      return Lay(simulation, self)

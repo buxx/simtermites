@@ -12,6 +12,7 @@ class SimulationManager(object):
   termites_simulator = None
   mover = None
   placer = None
+  zones = {}
   
   objects_positions_grid = {}
   objects_positions_grid_previous_cycle = {}
@@ -69,3 +70,11 @@ class SimulationManager(object):
     # objets soit dans SimulationManager et que TermiteSimulator pioche
     # les objets termites dans les objets de la simulation
     return self.termites_simulator.termites
+  
+  def addZone(self, zone):
+    self.zones[zone.id] = zone
+  
+  def getZoneIfExist(self, zone_id):
+    if zone_id in self.zones:
+      return self.zones[zone_id]
+    return None

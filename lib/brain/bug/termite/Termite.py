@@ -10,8 +10,8 @@ class Termite(Bug):
     Bug.__init__(self, host)
     self.move_wait_probability = Configuration.TERMITE_MOVE_WAIT_PROBABILITY
   
-  def getMoveObject(self):
-    return TermiteMove(self)
+  def getMoveObject(self, simulation):
+    return TermiteMove(simulation, self)
   
-  def getWaitObject(self):
-    return Wait(self)
+  def getWaitObject(self, simulation):
+    return Wait(simulation, self)

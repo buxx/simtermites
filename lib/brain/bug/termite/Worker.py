@@ -15,12 +15,12 @@ class Worker(Termite):
     #larva_near = None
     if larva_near != None:
       if self.host.object_carried == None:
-        return Take(self.host, larva_near)
+        return Take(simulation, self, self.host, larva_near)
       elif self.host.object_carried.__class__.__name__ == 'Larva':
         #
         #if larva_near.position == self.host.object_carried.position:
         #  print 
         #
-        return Put(self.host, self.host.object_carried)
+        return Put(simulation, self, self.host, self.host.object_carried)
     
     return None

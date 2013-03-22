@@ -1,14 +1,16 @@
-class Take(object):
+from lib.actions.Action import Action
+class Take(Action):
 
   good = None
   host = None
 
-  def __init__(self, host, good):
+  def __init__(self, simulation, brain, host, good):
+    Action.__init__(self, simulation, brain)
     self.host = host
     self.good = good
 
-  def do(self, termite_simulation):
+  def do(self):
     self.host.object_carried = self.good
     self.good.setCarriedBy(self.host)
     # TODO: La couleur ici c'est pas classe
-    termite_simulation.simulation.core.pygame.colorizer.colorizePixel(self.good.position, (0, 0, 0))
+    self.simulation.core.pygame.colorizer.colorizePixel(self.good.position, (0, 0, 0))

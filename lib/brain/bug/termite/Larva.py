@@ -7,4 +7,4 @@ class Larva(Termite):
     Termite.__init__(self, host)
   
   def getAction(self, simulation):
-    return Wait(self)
+    return Wait(simulation, self)

@@ -35,8 +35,8 @@ class ObjectAlive(Object):
   def think(self, simulation):
     self.brain.think(simulation)
     
-  def doAction(self, simulation):
-    self.brain.action.do(simulation)
+  def doAction(self):
+    self.brain.action.do()
 
   def getPosition(self):
     return self.trace[0]
