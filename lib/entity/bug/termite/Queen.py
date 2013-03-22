@@ -5,8 +5,8 @@ class Queen(Termite):
 
   color = 255, 198, 35
   
-  def __init__(self):
-    brain = QueenBrain(self)
+  def __init__(self, work = None):
+    brain = QueenBrain(self, work)
     Termite.__init__(self, brain, 6)
     
   def getLayPosition(self):

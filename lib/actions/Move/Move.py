@@ -1,6 +1,8 @@
 from lib.actions.Action import Action
+from config.Configuration import Configuration
 import random
 from config.Configuration import Configuration
+from lib.simulation.ZoneConnector import ZoneConnector
 
 class Move(Action):
   
@@ -20,11 +22,17 @@ class Move(Action):
   
   def determineDirection(self):
     self.getNewDirection()
-    nursery = self.simulation.getZoneIfExist('Nursery')
-    if nursery != None:
-      if not nursery.positionIsInArea(self.new_coordonates):
-        self.direction_same_way_probability = [0,100]
-        self.determineDirection()
+    if not self.canMoveInThisCoordonates(self.new_coordonates):
+      self.direction_same_way_probability = [0,100]
+      self.determineDirection()
+  
+  def canMoveInThisCoordonates(self, new_coordonates):
+    if ZoneConnector.objectMatchWithJailZone(self.brain.host.__class__.__name__, self.brain.work, 'Nursery'):
+      nursery = self.simulation.getZoneIfExist('Nursery')
+      if nursery != None :
+        if not nursery.positionIsInArea(new_coordonates):
+          return False
+    return True
   
   def getNewDirection(self):
     if self.takeSameDirection():

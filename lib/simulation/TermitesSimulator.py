@@ -9,7 +9,7 @@ class TermitesSimulator(object):
   def __init__(self, simulation, termites):
     self.simulation = simulation
     self.termites = termites
-    self.simulation.addZone(Nursery((Configuration.CONF_SCREEN_WIDTH_MIDDLE, Configuration.CONF_SCREEN_HEIGHT_MIDDLE),100))
+    self.simulation.addZone(Nursery((Configuration.ZONE_NURSERY_POSITION[0], Configuration.ZONE_NURSERY_POSITION[1]), Configuration.ZONE_NURSERY_RADIUS))
   
   def runActions(self):
     for termite in self.termites:

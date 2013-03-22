@@ -26,10 +26,14 @@ class SimulationManager(object):
   def initializeBugs(self):
     self.termites_simulator = TermitesSimulator(self, [])
     termites_count = 1
-    while termites_count <= Configuration.CONF_TERMITES_COUNT:
+    while termites_count <= Configuration.CONF_TERMITES_COUNT_WORKER_NOWORK:
       self.placer.place((Configuration.CONF_SCREEN_WIDTH_MIDDLE, Configuration.CONF_SCREEN_HEIGHT_MIDDLE), TermiteWorker())
       termites_count = termites_count+1
-    self.placer.place((Configuration.CONF_SCREEN_WIDTH_MIDDLE, Configuration.CONF_SCREEN_HEIGHT_MIDDLE), TermiteQueen())
+    termites_count = 0
+    while termites_count <= Configuration.CONF_TERMITES_COUNT_WORKER_NURSING:
+      self.placer.place((Configuration.CONF_SCREEN_WIDTH_MIDDLE, Configuration.CONF_SCREEN_HEIGHT_MIDDLE), TermiteWorker('Nursing'))
+      termites_count = termites_count+1
+    self.placer.place((Configuration.CONF_SCREEN_WIDTH_MIDDLE, Configuration.CONF_SCREEN_HEIGHT_MIDDLE), TermiteQueen('Queening'))
   
   def runCycle(self):
     # On clean les coordonees

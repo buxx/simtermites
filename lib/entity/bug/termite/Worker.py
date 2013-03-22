@@ -5,6 +5,6 @@ class Worker(Termite):
   
   object_carried = None
   
-  def __init__(self):
-    brain = WorkerBrain(self)
+  def __init__(self, work = None):
+    brain = WorkerBrain(self, work)
     Termite.__init__(self, brain, 2)

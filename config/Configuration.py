@@ -5,8 +5,25 @@ class Configuration(object):
   CONF_SCREEN_WIDTH_MIDDLE = 160
   CONF_SCREEN_HEIGHT = 240
   CONF_SCREEN_HEIGHT_MIDDLE = 120
-  CONF_TERMITES_COUNT = 300
   CONF_CLOCK_TICK = None # None is allowed
+  
+  CONF_TERMITES_COUNT_WORKER_NOWORK = 200
+  CONF_TERMITES_COUNT_WORKER_NURSING = 100
+  
+  """
+  Position de zones
+  """
+  ZONE_NURSERY_POSITION = [160, 120]
+  ZONE_NURSERY_RADIUS = 34
+  
+  """
+  Regles pour les zones
+  """
+  ZONE_RULE_JAIL = {
+    'Queen' : 'Queening',
+    'Worker' : 'Nursing'
+  }
+  
   
   """
     Deplacement des termites:
@@ -27,3 +44,4 @@ class Configuration(object):
   TERMITE_MOVING_SAME_WAY_SLIGHTLY_TURN_PROBABILITY = [1, 2]
   """ La rein pond un eouf tous les x cycles """
   TERMITE_QUEEN_LAY_EACH_CYCLE = 50
+  

@@ -12,6 +12,7 @@ class ObjectAlive(Brain):
   action = None
   action_forced_class = None
   action_forced_cycles = 0
+  work = None
   
   def __init__(self, host):
     Brain.__init__(self, host)
