@@ -36,9 +36,9 @@ class Larva(Termite):
   def hatchIfReady(self, simulation):
     if self.hatch_cyles == 0:
       simulation.termites_simulator.addNewObjectToSimulation(self.getPosition(), Worker('Nursing'))
-      self.destroy()
-      simulation.termites_simulator.deleteObjectFromSimulation(self)
+      self.destroy(simulation)
   
-  def destroy(self):
+  def destroy(self, simulation):
     if self.carried_by != None:
       self.carried_by.object_carried = None
+    simulation.termites_simulator.deleteObjectFromSimulation(self)

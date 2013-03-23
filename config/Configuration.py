@@ -51,7 +51,7 @@ class Configuration(object):
   LILECYCLE_EACH_CYCLE = 25
   """ Duree de vie maximum """
   TERMITES_LIFETIMES = {
-    'Worker' : 900 # 900:15min
+    'Worker' : 10 # 900:15min
   }
   LARVA_HATCH_CYCLES = 60 # 300:5min
   

@@ -49,4 +49,13 @@ class ObjectAlive(Object):
     return self.trace[self.length-2]
   
   def runLifeCycle(self, simulation):
-    pass
+    if self.lifecycle_left != None:
+      self.lifecycle_left = self.lifecycle_left - 1
+      self.destroyIfLifeCyclesFinished(simulation)
+  
+  def destroyIfLifeCyclesFinished(self, simulation):
+    if self.lifecycle_left == 0:
+      self.destroy(simulation)
+  
+  def destroy(self, simulation):
+    simulation.termites_simulator.deleteObjectFromSimulation(self)
