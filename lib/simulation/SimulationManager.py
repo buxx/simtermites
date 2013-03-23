@@ -5,6 +5,7 @@ from lib.ground.connector.Placer import Placer
 from lib.entity.bug.termite.Worker import Worker as TermiteWorker
 from lib.entity.bug.termite.Queen import Queen as TermiteQueen
 from lib.tool.Position import get_near_coordonates_for_position
+from lib.simulation.Restriction import Restriction
 
 class SimulationManager(object):
   
@@ -13,6 +14,7 @@ class SimulationManager(object):
   mover = None
   placer = None
   zones = {}
+  restriction = None
   
   # TODO: bien place le system de compteur de stats ?
   statistics_display_counter = 25
@@ -26,6 +28,7 @@ class SimulationManager(object):
     self.core = Core
     self.mover = Mover(self)
     self.placer = Placer(self)
+    self.restriction = Restriction(self)
     self.initializeBugs()
   
   def initializeBugs(self):
@@ -82,6 +85,8 @@ class SimulationManager(object):
     
   def addNewObjectToSimulation(self, position, object):
     self.core.statistics.increaseData(object.__class__.__name__)
+    if object.getWorkerNameIfHaveWork() != None:
+      self.core.statistics.increaseData(object.getWorkerNameIfHaveWork())
     self.placer.place(position, object)
   
   def deleteObjectFromSimulation(self, object):

@@ -9,8 +9,13 @@ class Larva(Termite):
   color = 255, 0, 0
   hatch_cyles = Configuration.LARVA_HATCH_CYCLES
   
-  def __init__(self):
+  # TODO: PRendre en compte le type
+  hatch_object = None
+  hatch_object_work = None
+  
+  def __init__(self, hatch_object_work):
     Termite.__init__(self, LarvaBrain(self), 1)
+    self.hatch_object_work = hatch_object_work
 
   def getPosition(self):
     if self.carried_by == None:
@@ -35,10 +40,16 @@ class Larva(Termite):
   
   def hatchIfReady(self, simulation):
     if self.hatch_cyles == 0:
-      simulation.termites_simulator.addNewObjectToSimulation(self.getPosition(), Worker('Nursing'))
+      simulation.termites_simulator.addNewObjectToSimulation(self.getPosition(), Worker(self.hatch_object_work))
       self.destroy(simulation)
   
   def destroy(self, simulation):
     if self.carried_by != None:
       self.carried_by.object_carried = None
     simulation.termites_simulator.deleteObjectFromSimulation(self)
+  
+  def puttedNearLarva(self):
+    self.hatch_cyles = self.hatch_cyles - Configuration.LARVA_PUTTED_NEAR_LARVA_HATCH_BONUS
+    if self.hatch_cyles < 1:
+      self.hatch_cyles = 1
+  

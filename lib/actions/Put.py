@@ -14,4 +14,5 @@ class Put(Action):
     self.host.object_carried = None
     self.simulation.core.pygame.colorizer.colorizePixel(self.good.position, self.good.color)
     # on dit a la termite de ne pas prendre de larve pendant un moment
-    self.host.brain.addForcedAction('Move', 55)
+    # TODO: Il faudrait que ce soit plus propre et interdire une action (comme Take)
+    self.host.brain.addForcedAction('Move', 25)

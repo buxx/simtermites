@@ -5,7 +5,7 @@ class Configuration(object):
   CONF_SCREEN_WIDTH_MIDDLE = 320
   CONF_SCREEN_HEIGHT = 480
   CONF_SCREEN_HEIGHT_MIDDLE = 240
-  CONF_CLOCK_TICK = 25 # None is allowed
+  CONF_CLOCK_TICK = None # None is allowed
   
   CONF_TERMITES_COUNT_WORKER_NOWORK = 5
   CONF_TERMITES_COUNT_WORKER_NURSING = 5
@@ -51,7 +51,15 @@ class Configuration(object):
   LILECYCLE_EACH_CYCLE = 25
   """ Duree de vie maximum """
   TERMITES_LIFETIMES = {
-    'Worker' : 10 # 900:15min
+    'Worker' : 1800, # 900:15min
+    'Larva' : 900
   }
-  LARVA_HATCH_CYCLES = 60 # 300:5min
+  LARVA_HATCH_CYCLES = 450 # 300:5min
+  LARVA_PUTTED_NEAR_LARVA_HATCH_BONUS = 50
+  
+  
+  """
+   GAMING
+  """
+  COUNT_MAX_NURSES = 20
   

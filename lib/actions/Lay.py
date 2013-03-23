@@ -7,7 +7,9 @@ class Lay(Action):
   
   def __init__(self, simulation, brain):
     Action.__init__(self, simulation, brain)
-    self.egg  = Larva()
+    # TODO: le work (nursing la) devra etre dynamique
+    self.egg  = Larva('Nursing')
   
   def do(self):
-    self.simulation.termites_simulator.addNewObjectToSimulation(self.brain.host.getLayPosition(), self.egg)
+    if self.simulation.restriction.canDoAction('Lay', 'Worker_Nursing'):
+      self.simulation.termites_simulator.addNewObjectToSimulation(self.brain.host.getLayPosition(), self.egg)

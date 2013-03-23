@@ -1,6 +1,6 @@
 from lib.brain.bug.termite.Termite import Termite
 from lib.actions.Take import Take
-from lib.actions.Put import Put
+from lib.actions.PutLarva import PutLarva
 
 class Worker(Termite):
 
@@ -18,5 +18,5 @@ class Worker(Termite):
         if self.host.object_carried == None:
           return Take(simulation, self, self.host, larva_near)
         elif self.host.object_carried.__class__.__name__ == 'Larva':
-          return Put(simulation, self, self.host, self.host.object_carried)
+          return PutLarva(simulation, self, self.host, self.host.object_carried)
     return None

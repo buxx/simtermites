@@ -1,5 +1,6 @@
 from lib.entity.Object import Object
 from collections import deque
+from config.Configuration import Configuration
 
 class ObjectAlive(Object):
   
@@ -16,6 +17,9 @@ class ObjectAlive(Object):
     self.brain = brain
     self.trace = deque()
     self.length = length
+    
+    if self.__class__.__name__ in Configuration.TERMITES_LIFETIMES:
+      self.lifecycle_left = Configuration.TERMITES_LIFETIMES[self.__class__.__name__]
    
   def initializePosition(self, position):
     self.setPosition(position, False)
@@ -59,3 +63,6 @@ class ObjectAlive(Object):
   
   def destroy(self, simulation):
     simulation.termites_simulator.deleteObjectFromSimulation(self)
+  
+  def getWorkerNameIfHaveWork(self):
+    return None

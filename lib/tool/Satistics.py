@@ -8,6 +8,11 @@ class Statistics(object):
   def __init__(self):
     pass
   
+  def getData(self, data_id):
+    if data_id in self.objects:
+      return self.objects[data_id]
+    return None
+  
   def increaseData(self, data_id):
     if data_id in self.objects:
       self.objects[data_id] = self.objects[data_id]+1
@@ -21,7 +26,7 @@ class Statistics(object):
   def updateDisplay(self, pygame_):
     pos_y = 2
     for data_id in self.objects:
-      pygame_.draw_rect((175, 175, 175), (2,pos_y,75,11), 0)
+      pygame_.draw_rect((175, 175, 175), (2,pos_y, 115 ,11), 0)
       label = pygame_.getLabel(data_id+': '+str(self.objects[data_id]))
       pygame_.screen.blit(label, (2, pos_y))
       pos_y = pos_y + 12
