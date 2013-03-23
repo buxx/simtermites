@@ -16,6 +16,8 @@ class SimulationManager(object):
   
   # TODO: bien place le system de compteur de stats ?
   statistics_display_counter = 25
+  filecycle_counter = Configuration.LILECYCLE_EACH_CYCLE
+  lifecycle_now = False
   
   objects_positions_grid = {}
   objects_positions_grid_previous_cycle = {}
@@ -49,6 +51,7 @@ class SimulationManager(object):
     self.termites_simulator.runActions()
     self.core.updateDisplay()
     self.updateStatisticsIfCount()
+    self.runLifeCyclecounter()
     
     if (Configuration.CONF_CLOCK_TICK):
       self.core.pygame.clock.tick(Configuration.CONF_CLOCK_TICK)
@@ -59,6 +62,13 @@ class SimulationManager(object):
       self.statistics_display_counter = 25
     else:
       self.statistics_display_counter = self.statistics_display_counter-1
+  
+  def runLifeCyclecounter(self):
+    self.filecycle_counter = self.filecycle_counter-1
+    self.lifecycle_now = False
+    if self.filecycle_counter == 0:
+      self.lifecycle_now = True
+      self.filecycle_counter = Configuration.LILECYCLE_EACH_CYCLE
   
   def addObjectPositionInGrid(self, object):
     
@@ -71,7 +81,15 @@ class SimulationManager(object):
     
     
   def addNewObjectToSimulation(self, position, object):
+    self.core.statistics.increaseData(object.__class__.__name__)
     self.placer.place(position, object)
+  
+  def deleteObjectFromSimulation(self, object):
+    self.core.statistics.uncreaseData(object.__class__.__name__)
+    # TODO: Avoir un objetqui gere la suppression d'element
+    for position in object.trace:
+      self.core.pygame.colorizer.colorizePixel(position, (0,0,0))
+    del object
 
   def findObjectNearPosition(self, object_class, position_ref, distance, allow_same_position):
     possibles_coordonates = get_near_coordonates_for_position(position_ref, distance, allow_same_position)

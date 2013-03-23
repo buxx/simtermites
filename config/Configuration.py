@@ -5,16 +5,16 @@ class Configuration(object):
   CONF_SCREEN_WIDTH_MIDDLE = 320
   CONF_SCREEN_HEIGHT = 480
   CONF_SCREEN_HEIGHT_MIDDLE = 240
-  CONF_CLOCK_TICK = None # None is allowed
+  CONF_CLOCK_TICK = 25 # None is allowed
   
-  CONF_TERMITES_COUNT_WORKER_NOWORK = 100
-  CONF_TERMITES_COUNT_WORKER_NURSING = 200
+  CONF_TERMITES_COUNT_WORKER_NOWORK = 5
+  CONF_TERMITES_COUNT_WORKER_NURSING = 5
   
   """
   Position de zones
   """
   ZONE_NURSERY_POSITION = [320, 240]
-  ZONE_NURSERY_RADIUS = 74
+  ZONE_NURSERY_RADIUS = 34
   
   """
   Regles pour les zones
@@ -42,6 +42,16 @@ class Configuration(object):
   TERMITE_QUEEN_MOVE_WAIT_PROBABILITY = [99, 100]
   TERMITE_MOVE_DIRECTION_SAME_WAY_PROBABILITY = [1, 1]
   TERMITE_MOVING_SAME_WAY_SLIGHTLY_TURN_PROBABILITY = [1, 2]
-  """ La rein pond un eouf tous les x cycles """
+  """ La reine pond un eouf tous les x cycles """
   TERMITE_QUEEN_LAY_EACH_CYCLE = 50
+  
+  """
+    Cycles de vies
+  """
+  LILECYCLE_EACH_CYCLE = 25
+  """ Duree de vie maximum """
+  TERMITES_LIFETIMES = {
+    'Worker' : 900 # 900:15min
+  }
+  LARVA_HATCH_CYCLES = 60 # 300:5min
   

@@ -9,7 +9,7 @@ class Object(object):
 
   def getPosition(self):
     return self.position
-
+  
   # TODO: Ce code est dans tool.Position maintenant
   def isNear(self, position_to_compare, distance):
     position_x = self.position[0]

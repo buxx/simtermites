@@ -15,8 +15,13 @@ class TermitesSimulator(object):
     for termite in self.termites:
       termite.think(self.simulation)
       termite.doAction()
+      if self.simulation.lifecycle_now:
+        termite.runLifeCycle(self.simulation)
       self.simulation.addObjectPositionInGrid(termite)
   
   def addNewObjectToSimulation(self, position, object):
-    self.termites.append(object)
     self.simulation.addNewObjectToSimulation(position, object)
+  
+  def deleteObjectFromSimulation(self, object):
+    self.termites[:] = [p for p in self.termites if p != object]
+    self.simulation.deleteObjectFromSimulation(object)

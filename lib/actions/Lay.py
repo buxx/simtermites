@@ -11,5 +11,3 @@ class Lay(Action):
   
   def do(self):
     self.simulation.termites_simulator.addNewObjectToSimulation(self.brain.host.getLayPosition(), self.egg)
-    self.simulation.core.statistics.increaseData('Larva')
-  

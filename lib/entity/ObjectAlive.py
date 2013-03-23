@@ -7,6 +7,7 @@ class ObjectAlive(Object):
   last_direction = None
   length = None
   brain = None
+  lifecycle_left = -1
   
   def __init__(self, brain, length):
     
@@ -46,3 +47,6 @@ class ObjectAlive(Object):
     
   def getBeforeLastPosition(self):
     return self.trace[self.length-2]
+  
+  def runLifeCycle(self, simulation):
+    pass
