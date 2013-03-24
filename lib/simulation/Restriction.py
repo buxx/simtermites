@@ -10,10 +10,8 @@ class Restriction(object):
   def __init__(self, simulation):
     self.simulation = simulation
   
-  def canDoAction(self, action1, action2):
-    if action1+'_'+action2 in self.restrictions and self.simulation.core.statistics.getData(action2) != None:
-      print 'action connu'
-      print str(self.simulation.core.statistics.getData(action2)) + ' ' + str(self.restrictions[action1+'_'+action2])
-      if self.simulation.core.statistics.getData(action2) > self.restrictions[action1+'_'+action2]:
+  def canDoAction(self, action_id, count_reference):
+    if action_id in self.restrictions:
+      if count_reference > self.restrictions[action_id]:
         return False
     return True

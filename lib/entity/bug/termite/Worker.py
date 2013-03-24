@@ -5,10 +5,10 @@ class Worker(Termite):
   
   object_carried = None
   
-  def getWorkerNameIfHaveWork(self):
+  def getId(self):
     if self.brain.work != None:
       return self.__class__.__name__+'_'+self.brain.work
-    return None
+    return Termite.getId(self)
   
   def __init__(self, work = None):
     brain = WorkerBrain(self, work)

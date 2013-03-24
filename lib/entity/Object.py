@@ -3,10 +3,13 @@ class Object(object):
   color = 255, 255, 255
   position = None
   carried_by = None
-
+  
+  def getId(self):
+    return self.__class__.__name__
+  
   def setPosition(self, position):
     self.position = position
-
+  
   def getPosition(self):
     return self.position
   

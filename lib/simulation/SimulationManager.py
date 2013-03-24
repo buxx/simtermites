@@ -42,7 +42,7 @@ class SimulationManager(object):
     while termites_count <= Configuration.CONF_TERMITES_COUNT_WORKER_NURSING:
       self.placer.place((Configuration.CONF_SCREEN_WIDTH_MIDDLE, Configuration.CONF_SCREEN_HEIGHT_MIDDLE), TermiteWorker('Nursing'))
       termites_count = termites_count+1
-      self.core.statistics.increaseData('Worker')
+      self.core.statistics.increaseData('Worker_Nursing')
     self.placer.place((Configuration.CONF_SCREEN_WIDTH_MIDDLE, Configuration.CONF_SCREEN_HEIGHT_MIDDLE), TermiteQueen('Queening'))
     self.core.statistics.increaseData('Queen')
   
@@ -74,19 +74,16 @@ class SimulationManager(object):
       self.filecycle_counter = Configuration.LILECYCLE_EACH_CYCLE
   
   def addObjectPositionInGrid(self, object):
-    
     if object.carried_by == None:
       position_key = str(object.getPosition()[0])+'.'+str(object.getPosition()[1])
       if position_key in self.objects_positions_grid:
         self.objects_positions_grid[position_key].append(object)
       else:
         self.objects_positions_grid[position_key] = [object]
-    
-    
-  def addNewObjectToSimulation(self, position, object):
-    self.core.statistics.increaseData(object.__class__.__name__)
-    if object.getWorkerNameIfHaveWork() != None:
-      self.core.statistics.increaseData(object.getWorkerNameIfHaveWork())
+  
+  def addNewObjectToSimulation(self, position, object, increase_statistics_data = True):
+    if increase_statistics_data == True:
+      self.core.statistics.increaseData(object.getId())
     self.placer.place(position, object)
   
   def deleteObjectFromSimulation(self, object):
