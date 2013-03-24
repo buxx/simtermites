@@ -15,3 +15,7 @@ class Restriction(object):
       if count_reference > self.restrictions[action_id]:
         return False
     return True
+  
+  def updateRestrictionParametersWithPlayerConfiguration(self, player_configurations):
+    if 'count_max_nurses' in player_configurations:
+      self.restrictions['Lay_Worker_Nursing'] = player_configurations['count_max_nurses']
