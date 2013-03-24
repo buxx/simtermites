@@ -48,8 +48,8 @@ class Larva(Termite):
   
   def destroy(self, simulation):
     if self.carried_by != None:
-      print 'Delete in arms'
       self.carried_by.object_carried = None
+      self.carried_by = None
     simulation.termites_simulator.deleteObjectFromSimulation(self)
   
   def puttedNearLarva(self):

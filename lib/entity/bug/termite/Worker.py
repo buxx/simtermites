@@ -4,6 +4,7 @@ from lib.brain.bug.termite.Worker import Worker as WorkerBrain
 class Worker(Termite):
   
   object_carried = None
+  debug_caried_cycles = 25
   
   def getId(self):
     if self.brain.work != None:
@@ -18,3 +19,19 @@ class Worker(Termite):
     if self.object_carried != None:
       self.object_carried.setCarriedByNone(self)
     Termite.destroy(self, simulation)
+  
+  def think(self, simulation):
+    self.debugCarriedObject()
+    Termite.think(self, simulation)
+  
+  def debugCarriedObject(self):
+    if self.object_carried != None:
+      self.debug_caried_cycles = self.debug_caried_cycles -1
+      if self.debug_caried_cycles == 0:
+        self.debug_caried_cycles = 25
+        try:
+          simulation.termites_simulator.termites.index(self.object_carried)
+        except:
+          self.object_carried.carried_by = None
+          self.object_carried = None
+        

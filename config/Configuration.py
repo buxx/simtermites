@@ -8,7 +8,7 @@ class Configuration(object):
   CONF_CLOCK_TICK = None # None is allowed
   
   CONF_TERMITES_COUNT_WORKER_NOWORK = 0
-  CONF_TERMITES_COUNT_WORKER_NURSING = 5
+  CONF_TERMITES_COUNT_WORKER_NURSING = 10
   
   """
   Position de zones
@@ -54,12 +54,12 @@ class Configuration(object):
     'Worker' : 1800, # 900:15min
     'Larva' : 900
   }
-  LARVA_HATCH_CYCLES = 450 # 300:5min
+  LARVA_HATCH_CYCLES = 420 # 300:5min
   LARVA_PUTTED_NEAR_LARVA_HATCH_BONUS = 175
   
   
   """
    GAMING
   """
-  COUNT_MAX_NURSES = 35
+  COUNT_MAX_NURSES = 40
   

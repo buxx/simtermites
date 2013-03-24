@@ -13,11 +13,20 @@ class TermitesSimulator(object):
   
   def runActions(self):
     for termite in self.termites:
-      termite.think(self.simulation)
-      termite.doAction()
-      if self.simulation.lifecycle_now:
-        termite.runLifeCycle(self.simulation)
-      self.simulation.addObjectPositionInGrid(termite)
+      
+      # TODO: Nettoyer ca
+      existInDeletedList = False
+      try:
+        existInDeletedList = self.simulation.just_deleted_objects.index(termite)
+      except:
+        pass
+      
+      if not existInDeletedList:
+        termite.think(self.simulation)
+        termite.doAction()
+        if self.simulation.lifecycle_now:
+          termite.runLifeCycle(self.simulation)
+        self.simulation.addObjectPositionInGrid(termite)
   
   def addNewObjectToSimulation(self, position, object, increase_statistics_data = True):
     self.simulation.addNewObjectToSimulation(position, object, increase_statistics_data)
