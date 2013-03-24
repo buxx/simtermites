@@ -87,7 +87,7 @@ class SimulationManager(object):
     self.placer.place(position, object)
   
   def deleteObjectFromSimulation(self, object):
-    self.core.statistics.uncreaseData(object.__class__.__name__)
+    self.core.statistics.uncreaseData(object.getId())
     # TODO: Avoir un objetqui gere la suppression d'element
     for position in object.trace:
       self.core.pygame.colorizer.colorizePixel(position, (0,0,0))

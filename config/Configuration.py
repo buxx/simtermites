@@ -5,16 +5,16 @@ class Configuration(object):
   CONF_SCREEN_WIDTH_MIDDLE = 320
   CONF_SCREEN_HEIGHT = 480
   CONF_SCREEN_HEIGHT_MIDDLE = 240
-  CONF_CLOCK_TICK = 25 # None is allowed
+  CONF_CLOCK_TICK = None # None is allowed
   
-  CONF_TERMITES_COUNT_WORKER_NOWORK = 5
+  CONF_TERMITES_COUNT_WORKER_NOWORK = 0
   CONF_TERMITES_COUNT_WORKER_NURSING = 5
   
   """
   Position de zones
   """
   ZONE_NURSERY_POSITION = [320, 240]
-  ZONE_NURSERY_RADIUS = 34
+  ZONE_NURSERY_RADIUS = 52
   
   """
   Regles pour les zones
@@ -55,11 +55,11 @@ class Configuration(object):
     'Larva' : 900
   }
   LARVA_HATCH_CYCLES = 450 # 300:5min
-  LARVA_PUTTED_NEAR_LARVA_HATCH_BONUS = 50
+  LARVA_PUTTED_NEAR_LARVA_HATCH_BONUS = 175
   
   
   """
    GAMING
   """
-  COUNT_MAX_NURSES = 20
+  COUNT_MAX_NURSES = 35
   

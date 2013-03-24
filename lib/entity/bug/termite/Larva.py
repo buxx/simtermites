@@ -35,9 +35,9 @@ class Larva(Termite):
   
   def runLifeCycle(self, simulation):
     Termite.runLifeCycle(self, simulation)
-    if self.carried_by == None:
-      self.hatch_cyles = self.hatch_cyles - 1
-      self.hatchIfReady(simulation)
+    #if self.carried_by == None:
+    self.hatch_cyles = self.hatch_cyles - 1
+    self.hatchIfReady(simulation)
   
   def hatchIfReady(self, simulation):
     if self.hatch_cyles == 0:
@@ -48,6 +48,7 @@ class Larva(Termite):
   
   def destroy(self, simulation):
     if self.carried_by != None:
+      print 'Delete in arms'
       self.carried_by.object_carried = None
     simulation.termites_simulator.deleteObjectFromSimulation(self)
   
