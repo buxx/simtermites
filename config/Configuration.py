@@ -59,7 +59,22 @@ class Configuration(object):
   
   
   """
-   GAMING
+   GAMING DEFAUKT VALUES FOR PLAYER CONFIGURATION
   """
   COUNT_MAX_NURSES = 40
+  # sur 100%
+  QUEEN_LAY_PROBABILITY = {
+    'Worker' : 100
+  }
+  # sur 100%
+  """ TODO: 1 - comment faire propager les ordres ? (plus simpe, direct sur tt les termites)
+      TODO: 2 - lorsque une termite a l'exterieur du cercle couffin devient nourice:
+                il faut qu'elle puisse se deplacer jusqu'a la reine
+                => Il faut lors du deplacement calculer si la direction va s'eloigner ou se
+                rapprocher de la zone des couffins (utiliser le systeme matheu deja implemente).
+  """
+  WORKER_ORDERS = {
+    'Nursing' : 10,
+    'Fooding' : 90
+  }
   
