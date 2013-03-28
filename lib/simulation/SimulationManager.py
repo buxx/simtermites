@@ -56,8 +56,8 @@ class SimulationManager(object):
     self.updateStatisticsIfCount()
     self.runLifeCyclecounter()
     
-    if (Configuration.CONF_CLOCK_TICK):
-      self.core.pygame.clock.tick(Configuration.CONF_CLOCK_TICK)
+    if (self.core.configuration.CONF_CLOCK_TICK):
+      self.core.pygame.clock.tick(self.core.configuration.CONF_CLOCK_TICK)
   
   def updateStatisticsIfCount(self):
     if self.statistics_display_counter == 0:

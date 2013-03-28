@@ -1,5 +1,3 @@
-from config.Configuration import Configuration
-
 class Placer(object):
   """"""
   simulation = None

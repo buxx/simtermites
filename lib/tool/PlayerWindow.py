@@ -10,6 +10,7 @@ class PlayerWindow(threading.Thread):
   core = None
   _stopevent = threading.Event()
   count_max_nurses_entry = None
+  fps_max_entry = None
   player_configurations = {}
   
   def __init__(self, core):
@@ -32,13 +33,24 @@ class PlayerWindow(threading.Thread):
     self.vbox.pack_start(self.button, True, True, 0)
     self.button.show()
     
-    self.updatePlayerConfigurations(None)
+    self.updatePlayerConfigurations(None, None, False)
     
     gtk.main()
     
   def addEntrys(self):
+    self.addFPSMaxEntry()
     self.addCountMaxNursesEntry()
-  
+
+  def addFPSMaxEntry(self):
+    self.fps_max_label = gtk.Label("FPS max")
+    self.fps_max_entry = gtk.Entry()
+    self.fps_max_entry.set_max_length(4)
+    self.fps_max_entry.set_text(str(Configuration.CONF_CLOCK_TICK))
+    self.vbox.pack_start(self.fps_max_label, True, True, 0)
+    self.vbox.pack_start(self.fps_max_entry, True, True, 0)
+    self.fps_max_entry.show()
+    self.fps_max_label.show()
+    
   def addCountMaxNursesEntry(self):
     self.count_max_nurses_label = gtk.Label("Nurses max")
     self.count_max_nurses_entry = gtk.Entry()
@@ -49,9 +61,11 @@ class PlayerWindow(threading.Thread):
     self.count_max_nurses_entry.show()
     self.count_max_nurses_label.show()
   
-  def updatePlayerConfigurations(self, widget, data = None):
+  def updatePlayerConfigurations(self, widget = None, data = None, update_core = True):
     self.player_configurations['count_max_nurses'] = int(self.count_max_nurses_entry.get_text())
-    self.core.propagatePlayerConfigurations()
+    self.player_configurations['fps_max'] = int(self.fps_max_entry.get_text())
+    if update_core:
+      self.core.updateConfiguration(self.player_configurations)
   
   def delete_event(self, widget, event, data=None):
     return True

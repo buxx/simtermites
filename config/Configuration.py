@@ -5,7 +5,7 @@ class Configuration(object):
   CONF_SCREEN_WIDTH_MIDDLE = 320
   CONF_SCREEN_HEIGHT = 480
   CONF_SCREEN_HEIGHT_MIDDLE = 240
-  CONF_CLOCK_TICK = 25 # None is allowed
+  CONF_CLOCK_TICK = 25 # None is allowed, 25 for eye natural
   
   CONF_TERMITES_COUNT_WORKER_NOWORK = 0
   CONF_TERMITES_COUNT_WORKER_NURSING = 10
@@ -23,7 +23,6 @@ class Configuration(object):
     'Queen' : 'Queening',
     'Worker' : 'Nursing'
   }
-  
   
   """
     Deplacement des termites:
@@ -78,3 +77,10 @@ class Configuration(object):
     'Fooding' : 90
   }
   
+  CONFIGURATION_AND_PLAYER_WINDOW_RELATIONS = {
+    'fps_max' : 'CONF_CLOCK_TICK',
+    'count_max_nurses' : 'COUNT_MAX_NURSES'
+  }
+  
+  def setConfiguration(self, configuration_id, configuration_value):
+    setattr(self, configuration_id, configuration_value)
