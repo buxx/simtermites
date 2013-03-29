@@ -6,6 +6,7 @@ from lib.entity.bug.termite.Worker import Worker as TermiteWorker
 from lib.entity.bug.termite.Queen import Queen as TermiteQueen
 from lib.tool.Position import get_near_coordonates_for_position
 from lib.simulation.Restriction import Restriction
+from lib.simulation.work.Composer import Composer
 
 class SimulationManager(object):
   
@@ -15,6 +16,7 @@ class SimulationManager(object):
   placer = None
   zones = {}
   restriction = None
+  work_composer = None
   
   # TODO: bien place le system de compteur de stats ?
   statistics_display_counter = 25
@@ -29,15 +31,16 @@ class SimulationManager(object):
     self.mover = Mover(self)
     self.placer = Placer(self)
     self.restriction = Restriction(self)
+    self.work_composer = Composer(self)
     self.initializeBugs()
   
   def initializeBugs(self):
     self.termites_simulator = TermitesSimulator(self, [])
     termites_count = 1
     while termites_count <= Configuration.CONF_TERMITES_COUNT_WORKER_NOWORK:
-      self.placer.place((Configuration.CONF_SCREEN_WIDTH_MIDDLE, Configuration.CONF_SCREEN_HEIGHT_MIDDLE), TermiteWorker())
+      self.placer.place((Configuration.CONF_SCREEN_WIDTH_MIDDLE, Configuration.CONF_SCREEN_HEIGHT_MIDDLE), TermiteWorker('Fooding'))
       termites_count = termites_count+1
-      self.core.statistics.increaseData('Worker')
+      self.core.statistics.increaseData('Worker_Fooding')
     termites_count = 0
     while termites_count <= Configuration.CONF_TERMITES_COUNT_WORKER_NURSING:
       self.placer.place((Configuration.CONF_SCREEN_WIDTH_MIDDLE, Configuration.CONF_SCREEN_HEIGHT_MIDDLE), TermiteWorker('Nursing'))

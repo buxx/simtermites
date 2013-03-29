@@ -11,12 +11,10 @@ class Larva(Termite):
   
   # TODO: PRendre en compte le type
   hatch_object = None
-  hatch_object_work = None
   
-  def __init__(self, hatch_object, hatch_object_work):
+  def __init__(self, hatch_object):
     Termite.__init__(self, LarvaBrain(self), 1)
     self.hatch_object = hatch_object
-    self.hatch_object_work = hatch_object_work
 
   def getPosition(self):
     if self.carried_by == None:
@@ -42,8 +40,9 @@ class Larva(Termite):
   def hatchIfReady(self, simulation):
     if self.hatch_cyles == 0:
       # L'objet cree doit etre de classe dynamique
-      simulation.termites_simulator.addNewObjectToSimulation(self.getPosition(), Worker(self.hatch_object_work))
-      simulation.core.statistics.uncreaseData('Larva_willbe_Worker_Nursing')
+      worker_work = simulation.work_composer.getWorkForNewWorker()
+      print('will_be '+worker_work)
+      simulation.termites_simulator.addNewObjectToSimulation(self.getPosition(), Worker(worker_work))
       self.destroy(simulation)
   
   def destroy(self, simulation):
@@ -56,8 +55,3 @@ class Larva(Termite):
     self.hatch_cyles = self.hatch_cyles - Configuration.LARVA_PUTTED_NEAR_LARVA_HATCH_BONUS
     if self.hatch_cyles < 1:
       self.hatch_cyles = 1
-  
-  def getWillBeName(self):
-    if self.hatch_object_work != None:
-      return self.hatch_object + '_' + self.hatch_object_work
-    return self.hatch_object
