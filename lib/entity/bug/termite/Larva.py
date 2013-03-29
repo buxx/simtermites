@@ -41,7 +41,6 @@ class Larva(Termite):
     if self.hatch_cyles == 0:
       # L'objet cree doit etre de classe dynamique
       worker_work = simulation.work_composer.getWorkForNewWorker()
-      print('will_be '+worker_work)
       simulation.termites_simulator.addNewObjectToSimulation(self.getPosition(), Worker(worker_work))
       self.destroy(simulation)
   
