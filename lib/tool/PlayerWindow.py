@@ -9,8 +9,12 @@ class PlayerWindow(threading.Thread):
   
   core = None
   _stopevent = threading.Event()
+  
   count_max_nurses_entry = None
   fps_max_entry = None
+  worker_order_nursing_probability_entry = None
+  worker_order_fooding_probability_entry = None
+  
   player_configurations = {}
   
   def __init__(self, core):
@@ -40,6 +44,8 @@ class PlayerWindow(threading.Thread):
   def addEntrys(self):
     self.addFPSMaxEntry()
     self.addCountMaxNursesEntry()
+    self.addWorkerOrderNursingProbabilityEntry()
+    self.addWorkerOrderFoodingProbabilityEntry()
 
   def addFPSMaxEntry(self):
     self.fps_max_label = gtk.Label("FPS max")
@@ -60,10 +66,32 @@ class PlayerWindow(threading.Thread):
     self.vbox.pack_start(self.count_max_nurses_entry, True, True, 0)
     self.count_max_nurses_entry.show()
     self.count_max_nurses_label.show()
+    
+  def addWorkerOrderNursingProbabilityEntry(self):
+    self.worker_order_nursing_probability_label = gtk.Label("Workers Nursing %")
+    self.worker_order_nursing_probability_entry = gtk.Entry()
+    self.worker_order_nursing_probability_entry.set_max_length(3)
+    self.worker_order_nursing_probability_entry.set_text(str(Configuration.WORKER_ORDER_NURSING))
+    self.vbox.pack_start(self.worker_order_nursing_probability_label, True, True, 0)
+    self.vbox.pack_start(self.worker_order_nursing_probability_entry, True, True, 0)
+    self.worker_order_nursing_probability_entry.show()
+    self.worker_order_nursing_probability_label.show()
+    
+  def addWorkerOrderFoodingProbabilityEntry(self):
+    self.worker_order_fooding_probability_label = gtk.Label("Workers Fooding %")
+    self.worker_order_fooding_probability_entry = gtk.Entry()
+    self.worker_order_fooding_probability_entry.set_max_length(3)
+    self.worker_order_fooding_probability_entry.set_text(str(Configuration.WORKER_ORDER_FOODING))
+    self.vbox.pack_start(self.worker_order_fooding_probability_label, True, True, 0)
+    self.vbox.pack_start(self.worker_order_fooding_probability_entry, True, True, 0)
+    self.worker_order_fooding_probability_entry.show()
+    self.worker_order_fooding_probability_label.show()
   
   def updatePlayerConfigurations(self, widget = None, data = None, update_core = True):
     self.player_configurations['count_max_nurses'] = int(self.count_max_nurses_entry.get_text())
     self.player_configurations['fps_max'] = int(self.fps_max_entry.get_text())
+    self.player_configurations['worker_order_nursing'] = int(self.worker_order_nursing_probability_entry.get_text())
+    self.player_configurations['worker_order_fooding'] = int(self.worker_order_fooding_probability_entry.get_text())
     if update_core:
       self.core.updateConfiguration(self.player_configurations)
   

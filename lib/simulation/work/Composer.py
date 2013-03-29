@@ -10,8 +10,8 @@ class Composer(object):
   def getWorkForNewWorker(self):
     
     choices_percents = [
-      self.simulation.core.configuration.WORKER_ORDERS['Nursing'],
-      self.simulation.core.configuration.WORKER_ORDERS['Fooding']
+      self.simulation.core.configuration.WORKER_ORDER_NURSING,
+      self.simulation.core.configuration.WORKER_ORDER_FOODING
     ]
     choices_actions_correspondance = [
       'Nursing',

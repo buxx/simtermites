@@ -72,14 +72,14 @@ class Configuration(object):
                 => Il faut lors du deplacement calculer si la direction va s'eloigner ou se
                 rapprocher de la zone des couffins (utiliser le systeme matheu deja implemente).
   """
-  WORKER_ORDERS = {
-    'Nursing' : 10,
-    'Fooding' : 90
-  }
+  WORKER_ORDER_NURSING = 10
+  WORKER_ORDER_FOODING = 90
   
   CONFIGURATION_AND_PLAYER_WINDOW_RELATIONS = {
     'fps_max' : 'CONF_CLOCK_TICK',
-    'count_max_nurses' : 'COUNT_MAX_NURSES'
+    'count_max_nurses' : 'COUNT_MAX_NURSES',
+    'worker_order_nursing' : 'WORKER_ORDER_NURSING',
+    'worker_order_fooding' : 'WORKER_ORDER_FOODING'
   }
   
   def setConfiguration(self, configuration_id, configuration_value):
