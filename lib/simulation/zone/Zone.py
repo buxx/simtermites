@@ -5,6 +5,9 @@ class Zone(object):
   id = ''
   position = None
   radius = 0
+  draw = False
+  draw_width = 1
+  color = None
   
   def __init__(self, position, radius, zone_id):
     self.position = position

@@ -1,21 +1,14 @@
 from lib.entity.Object import Object
-from collections import deque
 from config.Configuration import Configuration
 
 class ObjectAlive(Object):
   
-  trace = None
   last_direction = None
   length = None
-  brain = None
   lifecycle_left = -1
   
   def __init__(self, brain, length):
-    
-    Object.__init__(self)
-    
-    self.brain = brain
-    self.trace = deque()
+    Object.__init__(self, brain)
     self.length = length
     
     if self.__class__.__name__ in Configuration.TERMITES_LIFETIMES:
@@ -37,18 +30,12 @@ class ObjectAlive(Object):
     self.trace.appendleft(pos)
     del self.trace[self.length]
   
-  def think(self, simulation):
-    self.brain.think(simulation)
-    
-  def doAction(self):
-    self.brain.action.do()
-
   def getPosition(self):
     return self.trace[0]
-
+  
   def getLastPosition(self):
     return self.trace[self.length-1]
-    
+  
   def getBeforeLastPosition(self):
     return self.trace[self.length-2]
   

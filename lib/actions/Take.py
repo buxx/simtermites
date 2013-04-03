@@ -13,4 +13,4 @@ class Take(Action):
     self.host.object_carried = self.good
     self.good.setCarriedBy(self.host)
     # TODO: La couleur ici c'est pas classe
-    self.simulation.core.pygame.colorizer.colorizePixel(self.good.position, (0, 0, 0))
+    self.simulation.core.pygame.colorizer.colorizePixel(self.good.getPosition(), (0, 0, 0))

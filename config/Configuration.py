@@ -19,9 +19,15 @@ class Configuration(object):
   """
   Regles pour les zones
   """
+  # TODO: pas tre dynamique ca ...
   ZONE_RULE_JAIL = {
     'Queen' : 'Queening',
     'Worker' : 'Nursing'
+  }
+  
+  ZONE_RULE_ACTION = {
+    'PlantZone' : ['Worker_Fooding'],
+    'PlantRepository' : ['Worker_Fooding']
   }
   
   """

@@ -36,5 +36,8 @@ class Pygame(object):
   def draw_rect(self, color, data, thickness):
     pygame.draw.rect(self.screen, color, data, thickness)
   
+  def draw_circle(self, color, center_position, radius, width):
+    pygame.draw.circle(self.screen, color, center_position, radius, width)
+  
   def getLabel(self, text, color = (255,255,0)):
     return self.default_font.render(text, 1, color)

@@ -1,5 +1,5 @@
 from lib.actions.Action import Action
-class Wait(Action):
+class Idle(Action):
   
   brain = None
   direction = None

@@ -54,13 +54,19 @@ class SimulationManager(object):
     self.objects_positions_grid_previous_cycle = self.objects_positions_grid
     self.objects_positions_grid = {}
     
+    self.displayZones()
     self.termites_simulator.runActions()
-    self.core.updateDisplay()
     self.updateStatisticsIfCount()
     self.runLifeCyclecounter()
+    self.core.updateDisplay()
     
     if (self.core.configuration.CONF_CLOCK_TICK):
       self.core.pygame.clock.tick(self.core.configuration.CONF_CLOCK_TICK)
+  
+  def displayZones(self):
+    for zone_id in self.zones:
+      if self.zones[zone_id].draw == True:
+        self.core.pygame.draw_circle(self.zones[zone_id].color, self.zones[zone_id].position, self.zones[zone_id].radius, self.zones[zone_id].draw_width)
   
   def updateStatisticsIfCount(self):
     if self.statistics_display_counter == 0:

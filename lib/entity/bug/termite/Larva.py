@@ -15,21 +15,16 @@ class Larva(Termite):
   def __init__(self, hatch_object):
     Termite.__init__(self, LarvaBrain(self), 1)
     self.hatch_object = hatch_object
-
+  
   def getPosition(self):
     if self.carried_by == None:
       return self.position
     else:
       return self.carried_by.getPosition()
-
+  
   def setCarriedBy(self, carrier):
     self.carried_by = carrier
     self.trace = deque()
-
-  def setCarriedByNone(self, host_putter):
-    # etrange ... il n'y a rien dans self.carried_by, on utilise alors un parametre
-    self.initializePosition(host_putter.getPosition())
-    self.carried_by = None
   
   def runLifeCycle(self, simulation):
     Termite.runLifeCycle(self, simulation)

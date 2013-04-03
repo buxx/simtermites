@@ -9,7 +9,6 @@ class ObjectAlive(Brain):
     move
   """
   move_wait_probability = None
-  action = None
   action_forced_class = None
   action_forced_cycles = 0
   work = None

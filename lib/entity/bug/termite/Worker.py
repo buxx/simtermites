@@ -21,17 +21,14 @@ class Worker(Termite):
     Termite.destroy(self, simulation)
   
   def think(self, simulation):
-    self.debugCarriedObject()
+    self.debugCarriedObject(simulation)
     Termite.think(self, simulation)
   
-  def debugCarriedObject(self):
+  def debugCarriedObject(self, simulation):
     if self.object_carried != None:
       self.debug_caried_cycles = self.debug_caried_cycles -1
       if self.debug_caried_cycles == 0:
         self.debug_caried_cycles = 25
-        try:
-          simulation.termites_simulator.termites.index(self.object_carried)
-        except:
+        if not self.object_carried in simulation.termites_simulator.termites:
           self.object_carried.carried_by = None
           self.object_carried = None
-        

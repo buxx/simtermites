@@ -1,5 +1,5 @@
 from lib.brain.bug.termite.Termite import Termite
-from lib.actions.Wait import Wait
+from lib.actions.Idle import Idle
 
 class Larva(Termite):
   
@@ -7,4 +7,4 @@ class Larva(Termite):
     Termite.__init__(self, host)
   
   def getAction(self, simulation):
-    return Wait(simulation, self)
+    return Idle(simulation, self)
