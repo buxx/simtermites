@@ -8,6 +8,8 @@ from lib.tool.Position import get_near_coordonates_for_position
 from lib.simulation.Restriction import Restriction
 from lib.simulation.work.Composer import Composer
 
+from lib.entity.PlantPiece import PlantPiece
+
 class SimulationManager(object):
   
   core = None
@@ -48,6 +50,13 @@ class SimulationManager(object):
       self.core.statistics.increaseData('Worker_Nursing')
     self.placer.place((Configuration.CONF_SCREEN_WIDTH_MIDDLE, Configuration.CONF_SCREEN_HEIGHT_MIDDLE), TermiteQueen('Queening'))
     self.core.statistics.increaseData('Queen')
+    
+    # TODO: Pour le moment on doit placer au moin une PlantPiece pour que les termites worker Fooding
+    # depose leur morceau de plante
+    plant_piece = PlantPiece()
+    plant_piece.initializePosition((Configuration.ZONE_NURSERY_POSITION[0]/2, Configuration.ZONE_NURSERY_POSITION[1]))
+    self.addNewObjectToSimulation(plant_piece.getPosition(), plant_piece)
+    #
   
   def runCycle(self):
     # On clean les coordonees

@@ -32,6 +32,17 @@ class Move(Action):
       if nursery != None :
         if not nursery.positionIsInArea(new_coordonates):
           return False
+    # TODO: Modifier ce code hardcoded. Il faut changer le ZONE_RULE_JAIL pour preciser
+    # la zone en question
+    if self.brain.host.__class__.__name__ == 'Worker' and\
+       self.brain.work == 'Fooding' and\
+       self.brain.host.canCarryObject() == True:
+      if self.brain.host.object_carried != None:
+        if self.brain.host.object_carried.__class__.__name__ == 'PlantPiece':
+          plant_repo = self.simulation.getZoneIfExist('PlantRepository')
+          if plant_repo != None :
+            if not plant_repo.positionIsInArea(new_coordonates) and plant_repo.positionIsInArea(self.brain.host.getPosition()):
+              return False
     return True
   
   def getNewDirection(self):

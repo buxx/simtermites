@@ -13,7 +13,7 @@ class TermitesSimulator(object):
     self.termites = termites
     self.simulation.addZone(Nursery((Configuration.ZONE_NURSERY_POSITION[0], Configuration.ZONE_NURSERY_POSITION[1]), Configuration.ZONE_NURSERY_RADIUS))
     self.simulation.addZone(PlantFood((Configuration.ZONE_NURSERY_POSITION[0], 0),120))
-    self.simulation.addZone(PlantRepository((Configuration.ZONE_NURSERY_POSITION[0]/2, Configuration.ZONE_NURSERY_POSITION[1]),125))
+    self.simulation.addZone(PlantRepository((Configuration.ZONE_NURSERY_POSITION[0]/2, Configuration.ZONE_NURSERY_POSITION[1]),25))
     
   def runActions(self):
     

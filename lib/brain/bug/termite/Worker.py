@@ -42,6 +42,7 @@ class Worker(Termite):
           if plant_repo.positionIsInArea(self.host.getPosition()):
             if self.host.object_carried != None:
               if self.host.object_carried.__class__.__name__ == 'PlantPiece':
-                return PutPlantPiece(simulation, self, self.host, self.host.object_carried)
-    
+                plant_piece_near = simulation.findObjectNearPosition('PlantPiece', self.host.getPosition(), 1, False)
+                if plant_piece_near != None:
+                  return PutPlantPiece(simulation, self, self.host, self.host.object_carried)
     return None

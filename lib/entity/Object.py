@@ -56,3 +56,8 @@ class Object(object):
     
   def doAction(self):
     self.brain.action.do()
+    
+  def canCarryObject(self):
+    if hasattr(self, 'object_carried'):
+      return True
+    return False

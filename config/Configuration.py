@@ -19,7 +19,7 @@ class Configuration(object):
   """
   Regles pour les zones
   """
-  # TODO: pas tre dynamique ca ...
+  # TODO: pas tre dynamique ca ... Il manque le type de zone en question
   ZONE_RULE_JAIL = {
     'Queen' : 'Queening',
     'Worker' : 'Nursing'
