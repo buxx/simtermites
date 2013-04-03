@@ -14,7 +14,10 @@ class Configuration(object):
   Position de zones
   """
   ZONE_NURSERY_POSITION = [320, 240]
-  ZONE_NURSERY_RADIUS = 52
+  ZONE_NURSERY_RADIUS = 25
+  
+  ZONE_FORTRESS_POSITION_CENTER = [320, 240]
+  ZONE_FORTRESS_RADIUS = 60
   
   """
   Regles pour les zones
@@ -87,6 +90,8 @@ class Configuration(object):
     'worker_order_nursing' : 'WORKER_ORDER_NURSING',
     'worker_order_fooding' : 'WORKER_ORDER_FOODING'
   }
+  
+  MAX_PLANTPIECE_ROADS = 5
   
   def setConfiguration(self, configuration_id, configuration_value):
     setattr(self, configuration_id, configuration_value)

@@ -37,6 +37,11 @@ class PlayerWindow(threading.Thread):
     self.vbox.pack_start(self.button, True, True, 0)
     self.button.show()
     
+    self.button_routes = gtk.Button('Draw routes')
+    self.button_routes.connect("clicked", self.drawAllRoads)
+    self.vbox.pack_start(self.button_routes, True, True, 0)
+    self.button_routes.show()
+    
     self.updatePlayerConfigurations(None, None, False)
     
     gtk.main()
@@ -102,3 +107,6 @@ class PlayerWindow(threading.Thread):
     if value_id in self.player_configurations:
       return self.player_configurations[value_id]
     return None
+  
+  def drawAllRoads(self, widget = None, data = None):
+    self.core.ask_draw_roads = True

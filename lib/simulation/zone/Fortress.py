@@ -1,11 +1,11 @@
 from lib.simulation.zone.CircleZone import CircleZone
 
-class PlantRepository(CircleZone):
+class Fortress(CircleZone):
   
   draw = True
-  color = 130, 130, 130
+  color = 0, 23, 139
   
   def __init__(self, position, radius):
     # TODO: Il faudra pouvoir gerer plusieurs zone du meme type, donc avoir un id
     # plus persmissif
-    CircleZone.__init__(self, position, radius, 'PlantRepository') 
+    CircleZone.__init__(self, position, radius, 'Fortress') 

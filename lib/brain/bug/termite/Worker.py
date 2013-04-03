@@ -3,15 +3,20 @@ from lib.actions.Take import Take
 from lib.actions.TakePlantPiece import TakePlantPiece
 from lib.actions.PutLarva import PutLarva
 from lib.actions.PutPlantPiece import PutPlantPiece
-
+from lib.tool.TraceManipulator import TraceManipulator
 
 from lib.simulation.ZoneConnector import ZoneConnector
+from lib.simulation.zone.PlantPiecesTrace import PlantPiecesTrace
+
+from collections import deque
 
 class Worker(Termite):
 
   def __init__(self, host, work = None):
     Termite.__init__(self, host)
     self.work = work
+  
+  
   
   def getAction(self, simulation):
     
@@ -33,6 +38,11 @@ class Worker(Termite):
         if plant_zone != None :
           if plant_zone.positionIsInArea(self.host.getPosition()):
             if self.host.object_carried == None:
+              # TEST
+              #simulation.core.pygame.draw_pixels((130, 130, 130), TraceManipulator.getEnlargedTrace(self.host.long_trace, 10))
+              simulation.addTraceZone(PlantPiecesTrace(self.host.long_trace, 10, 'TODO: id ou pas ici ?'), 'PlantPiecesRoad')
+              self.host.long_trace = deque()
+              # END TEST
               return TakePlantPiece(simulation, self, self.host)
       if ZoneConnector.objectMatchWithActionZone('Worker', 'Fooding', 'PlantRepository'):
         # TODO: ce code ne permet qu'une zone de ce type, il faudra

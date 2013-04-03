@@ -7,7 +7,7 @@ from lib.entity.bug.termite.Queen import Queen as TermiteQueen
 from lib.tool.Position import get_near_coordonates_for_position
 from lib.simulation.Restriction import Restriction
 from lib.simulation.work.Composer import Composer
-
+from collections import deque
 from lib.entity.PlantPiece import PlantPiece
 
 class SimulationManager(object):
@@ -17,6 +17,7 @@ class SimulationManager(object):
   mover = None
   placer = None
   zones = {}
+  trace_zones = {}
   restriction = None
   work_composer = None
   
@@ -54,7 +55,7 @@ class SimulationManager(object):
     # TODO: Pour le moment on doit placer au moin une PlantPiece pour que les termites worker Fooding
     # depose leur morceau de plante
     plant_piece = PlantPiece()
-    plant_piece.initializePosition((Configuration.ZONE_NURSERY_POSITION[0]/2, Configuration.ZONE_NURSERY_POSITION[1]))
+    plant_piece.initializePosition((Configuration.ZONE_NURSERY_POSITION[0]-50, Configuration.ZONE_NURSERY_POSITION[1]))
     self.addNewObjectToSimulation(plant_piece.getPosition(), plant_piece)
     #
   
@@ -62,6 +63,11 @@ class SimulationManager(object):
     # On clean les coordonees
     self.objects_positions_grid_previous_cycle = self.objects_positions_grid
     self.objects_positions_grid = {}
+    
+    # hardcode pour test
+    if self.core.ask_draw_roads == True:
+      self.core.drawAllRoads()
+      self.core.ask_draw_roads = False
     
     self.displayZones()
     self.termites_simulator.runActions()
@@ -131,7 +137,36 @@ class SimulationManager(object):
   def addZone(self, zone):
     self.zones[zone.id] = zone
   
+  def addTraceZone(self, trace_zone, class_zone):
+    if class_zone in self.trace_zones:
+      self.trace_zones[class_zone].appendleft(trace_zone)
+      if len(self.trace_zones[class_zone]) > Configuration.MAX_PLANTPIECE_ROADS:
+        self.trace_zones[class_zone].pop()
+    else:
+      self.trace_zones[class_zone] = deque()
+      self.trace_zones[class_zone].appendleft(trace_zone)
+  
   def getZoneIfExist(self, zone_id):
     if zone_id in self.zones:
       return self.zones[zone_id]
     return None
+  
+  def positionIsInArea(self, zone_id, position):
+    zone = self.getZoneIfExist(zone_id)
+    if zone != None:
+      if zone.positionIsInArea(position):
+        return True
+    return False
+  
+  def getDistanceFromArea(self, zone_id, position):
+    zone = self.getZoneIfExist(zone_id)
+    if zone != None:
+      return zone.getDistanceFromAreaCenter(position)
+    return None
+  
+  def positionIsInTrace(self, class_zone, position):
+    if class_zone in self.trace_zones:
+      for trace_zone in self.trace_zones[class_zone]:
+        if trace_zone.positionIsInArea(position):
+          return True
+    return False

@@ -19,14 +19,15 @@ class Move(Action):
   
   def do(self):
     self.simulation.mover.move(self.brain.host, self)
+    self.brain.host.hasMoved(self.new_coordonates)
   
-  def determineDirection(self):
+  def determineDirection(self, refused_coordonates_count = 0):
     self.getNewDirection()
-    if not self.canMoveInThisCoordonates(self.new_coordonates):
+    if not self.canMoveInThisCoordonates(self.new_coordonates, refused_coordonates_count):
       self.direction_same_way_probability = [0,100]
-      self.determineDirection()
+      self.determineDirection(refused_coordonates_count+1)
   
-  def canMoveInThisCoordonates(self, new_coordonates):
+  def canMoveInThisCoordonates(self, new_coordonates, refused_coordonates_count):
     if ZoneConnector.objectMatchWithJailZone(self.brain.host.__class__.__name__, self.brain.work, 'Nursery'):
       nursery = self.simulation.getZoneIfExist('Nursery')
       if nursery != None :
@@ -39,10 +40,27 @@ class Move(Action):
        self.brain.host.canCarryObject() == True:
       if self.brain.host.object_carried != None:
         if self.brain.host.object_carried.__class__.__name__ == 'PlantPiece':
-          plant_repo = self.simulation.getZoneIfExist('PlantRepository')
-          if plant_repo != None :
-            if not plant_repo.positionIsInArea(new_coordonates) and plant_repo.positionIsInArea(self.brain.host.getPosition()):
-              return False
+          if not self.simulation.positionIsInArea('PlantRepository', new_coordonates) and self.simulation.positionIsInArea('PlantRepository', self.brain.host.getPosition()):
+            print 'False: 1'
+            return False
+          else:
+            if self.simulation.positionIsInArea('Fortress', self.brain.host.getPosition()) and not self.simulation.positionIsInArea('PlantRepository', self.brain.host.getPosition()):
+              if self.simulation.getDistanceFromArea('PlantRepository', new_coordonates) > self.simulation.getDistanceFromArea('PlantRepository', self.brain.host.getPosition()):
+                print 'False: 2'
+                return False
+            else:
+              if not self.simulation.positionIsInTrace('PlantPiecesRoad', new_coordonates) and self.simulation.positionIsInTrace('PlantPiecesRoad', self.brain.host.getPosition()):
+                print 'False: 3'
+                return False
+              elif not self.simulation.positionIsInArea('PlantRepository', self.brain.host.getPosition()):
+                if self.simulation.getDistanceFromArea('Fortress', new_coordonates) > self.simulation.getDistanceFromArea('Fortress', self.brain.host.getPosition()) and refused_coordonates_count < 3:
+                  print 'False: 4'
+                  return False
+      
+      else:
+        if not self.simulation.positionIsInTrace('PlantPiecesRoad', new_coordonates) and self.simulation.positionIsInTrace('PlantPiecesRoad', self.brain.host.getPosition()):
+          print 'False: 5'
+          return False
     return True
   
   def getNewDirection(self):

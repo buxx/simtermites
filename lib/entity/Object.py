@@ -7,10 +7,12 @@ class Object(object):
   carried_by = None
   brain = None
   trace = None
+  long_trace = None
   
   def __init__(self, brain):
     self.brain = brain
     self.trace = deque()
+    self.long_trace = deque()
   
   def getId(self):
     return self.__class__.__name__
@@ -61,3 +63,6 @@ class Object(object):
     if hasattr(self, 'object_carried'):
       return True
     return False
+  
+  def hasMoved(self, new_coordonates):
+    pass

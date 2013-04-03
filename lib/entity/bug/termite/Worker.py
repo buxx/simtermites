@@ -32,3 +32,7 @@ class Worker(Termite):
         if not self.object_carried in simulation.termites_simulator.termites:
           self.object_carried.carried_by = None
           self.object_carried = None
+  
+  def hasMoved(self, new_coordonates):
+    if self.brain.work == 'Fooding' and self.object_carried == None:
+      self.long_trace.appendleft(new_coordonates)

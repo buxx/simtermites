@@ -19,6 +19,9 @@ class Core(object):
   player_configuration = None
   configuration = None
   
+  # hardcode pour test
+  ask_draw_roads = False
+  
   def start(self):
     
     self.configuration = Configuration()
@@ -56,3 +59,10 @@ class Core(object):
     for key in player_configurations:
       self.configuration.setConfiguration(self.configuration.CONFIGURATION_AND_PLAYER_WINDOW_RELATIONS[key], player_configurations[key])
     self.simulation.restriction.updateRestrictions()
+  
+  # hardcode pour tests
+  def drawAllRoads(self):
+    if 'PlantPiecesRoad' in self.simulation.trace_zones:
+      for trace_zone in self.simulation.trace_zones['PlantPiecesRoad']:
+        for coordonate in trace_zone.coordonates:
+          self.pygame.draw_circle((130, 130, 130), coordonate, trace_zone.width, 0)

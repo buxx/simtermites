@@ -39,5 +39,9 @@ class Pygame(object):
   def draw_circle(self, color, center_position, radius, width):
     pygame.draw.circle(self.screen, color, center_position, radius, width)
   
+  def draw_pixels(self, color, coordonates):
+    for coordonate in coordonates:
+      self.colorizer.colorizePixel(coordonate, color)
+  
   def getLabel(self, text, color = (255,255,0)):
     return self.default_font.render(text, 1, color)

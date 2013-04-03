@@ -1,6 +1,6 @@
-from lib.simulation.zone.Zone import Zone
+from lib.simulation.zone.CircleZone import CircleZone
 
-class Nursery(Zone):
+class Nursery(CircleZone):
   
   draw = True
   color = 255, 35, 244
@@ -8,4 +8,4 @@ class Nursery(Zone):
   def __init__(self, position, radius):
     # TODO: Il faudra pouvoir gerer plusieurs zone du meme type, donc avoir un id
     # plus persmissif
-    Zone.__init__(self, position, radius, 'Nursery') 
+    CircleZone.__init__(self, position, radius, 'Nursery') 
