@@ -29,6 +29,10 @@ class Move(Action):
   
   def canMoveInThisCoordonates(self, new_coordonates, refused_coordonates_count):
     
+    # sortie d'ecran: TODO dans un fct seule
+    if new_coordonates[0] < 0 or new_coordonates[1] < 0 or new_coordonates[0] > Configuration.CONF_SCREEN_WIDTH or new_coordonates[1] > Configuration.CONF_SCREEN_HEIGHT:
+      return False
+    
     if ZoneConnector.objectMatchWithJailZone(self.brain.host.__class__.__name__, self.brain.work, 'Nursery'):
       nursery = self.simulation.getZoneIfExist('Nursery')
       if nursery != None :
@@ -153,7 +157,4 @@ class Move(Action):
       x = x+1
       y = y-1
     
-    if x < 0 or y < 0 or x > Configuration.CONF_SCREEN_WIDTH or y > Configuration.CONF_SCREEN_HEIGHT:
-      return (Configuration.CONF_SCREEN_WIDTH_MIDDLE, Configuration.CONF_SCREEN_HEIGHT_MIDDLE)
-    else:
-      return (int(x), int(y))
+    return (int(x), int(y))
