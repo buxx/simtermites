@@ -34,5 +34,7 @@ class Worker(Termite):
           self.object_carried = None
   
   def hasMoved(self, new_coordonates):
+    # TODO: ce if dans un fct seule
     if self.brain.work == 'Fooding' and self.object_carried == None:
       self.long_trace.appendleft(new_coordonates)
+    self.brain.checkRoadProgress()

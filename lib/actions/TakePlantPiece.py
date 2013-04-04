@@ -7,3 +7,7 @@ class TakePlantPiece(Take):
     plant_piece = PlantPiece()
     Take.__init__(self, simulation, brain, host, plant_piece)
     simulation.termites_simulator.addNewObjectToSimulation(self.host.getPosition(), plant_piece)
+  
+  def do(self):
+    Take.do(self)
+    self.brain.connectToTrace('PlantPiecesRoad', self.simulation)

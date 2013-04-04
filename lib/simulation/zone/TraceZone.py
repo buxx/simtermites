@@ -21,6 +21,14 @@ class TraceZone(Zone):
   
   def positionIsInArea(self, tested_position):
     for coordonate in self.coordonates:
-      if sqrt((tested_position[0] - coordonate[0]) ** 2 + (tested_position[1] - coordonate[1]) ** 2) < self.width:
+      if self.getDistanceFromPoint(tested_position, coordonate) < self.width:
         return True
+    return False
+  
+  def getDistanceFromPoint(self, tested_position, point):
+    return sqrt((tested_position[0] - point[0]) ** 2 + (tested_position[1] - point[1]) ** 2)
+  
+  def positionIsNearPoint(self, tested_position, point):
+    if self.getDistanceFromPoint(tested_position, point) <= self.width:
+      return True
     return False

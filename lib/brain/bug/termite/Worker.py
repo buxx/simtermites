@@ -12,11 +12,13 @@ from collections import deque
 
 class Worker(Termite):
 
+  # tmp optimisation suivis trace
+  trace_following = None
+  trace_following_point = None
+  
   def __init__(self, host, work = None):
     Termite.__init__(self, host)
     self.work = work
-  
-  
   
   def getAction(self, simulation):
     
@@ -56,3 +58,32 @@ class Worker(Termite):
                 if plant_piece_near != None:
                   return PutPlantPiece(simulation, self, self.host, self.host.object_carried)
     return None
+  
+  def connectToTrace(self, trace_class, simulation):
+    current_distance = None
+    current_point = None
+    current_trace = None
+    if trace_class in simulation.trace_zones:
+      for trace_zone in simulation.trace_zones[trace_class]:
+        for point in trace_zone.coordonates:
+          distance_from_point = trace_zone.getDistanceFromPoint(self.host.getPosition(), point)
+          if distance_from_point < current_distance or current_distance == None:
+            current_distance = distance_from_point
+            current_point = trace_zone.coordonates.index(point)
+            current_trace = trace_zone
+    self.trace_following = current_trace
+    self.trace_following_point = current_point
+    self.checkRoadProgress()
+  
+  def checkRoadProgress(self):
+    if self.trace_following != None:
+      point = self.trace_following.coordonates[self.trace_following_point]
+      if self.trace_following.positionIsNearPoint(self.host.getPosition(), point):
+        self.aimForNextPointInRoad()
+  
+  def aimForNextPointInRoad(self):
+    if self.trace_following_point+1 in self.trace_following.coordonates:
+      self.trace_following_point += 1
+    else:
+      self.trace_following_point = None
+      self.trace_following = None
