@@ -7,7 +7,7 @@ class Configuration(object):
   CONF_SCREEN_HEIGHT_MIDDLE = 240
   CONF_CLOCK_TICK = 25 # None is allowed, 25 for eye natural
   
-  CONF_TERMITES_COUNT_WORKER_NOWORK = 50
+  CONF_TERMITES_COUNT_WORKER_NOWORK = 5
   CONF_TERMITES_COUNT_WORKER_NURSING = 10
   
   """

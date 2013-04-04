@@ -19,7 +19,7 @@ class Move(Action):
   
   def do(self):
     self.simulation.mover.move(self.brain.host, self)
-    self.brain.host.hasMoved(self.new_coordonates)
+    self.brain.host.hasMoved(self.new_coordonates,      self.simulation)
   
   def determineDirection(self, refused_coordonates_count = 0):
     self.getNewDirection()
@@ -42,18 +42,21 @@ class Move(Action):
       if self.brain.host.object_carried != None:
         if self.brain.host.object_carried.__class__.__name__ == 'PlantPiece':
           
-          
+          #### TMP
+          # if in Fortress, plus de route a suivre!
+          if self.simulation.positionIsInArea('Fortress', self.brain.host.getPosition()):
+            self.brain.stopFollowingRoute()
           
           # sors de PlantRepository
           if not self.simulation.positionIsInArea('PlantRepository', new_coordonates) and self.simulation.positionIsInArea('PlantRepository', self.brain.host.getPosition()):
-            #print 'False: 1'
+            print 'False: 1'
             return False
           else:
             # dans forteresse mais pas dans PlantRepository
             if self.simulation.positionIsInArea('Fortress', self.brain.host.getPosition()) and not self.simulation.positionIsInArea('PlantRepository', self.brain.host.getPosition()):
               # s'eloigne de PlantRepository
               if self.simulation.getDistanceFromArea('PlantRepository', new_coordonates) > self.simulation.getDistanceFromArea('PlantRepository', self.brain.host.getPosition()):
-                #print 'False: 2'
+                print 'False: 2'
                 return False
             else:
               # s'eloigne de PlantPiecesRoad
@@ -66,18 +69,24 @@ class Move(Action):
               elif not self.simulation.positionIsInArea('PlantRepository', self.brain.host.getPosition()):
                 # s'eloigne de Fortress
                 if self.simulation.getDistanceFromArea('Fortress', new_coordonates) > self.simulation.getDistanceFromArea('Fortress', self.brain.host.getPosition()) and refused_coordonates_count < 3:
-                  #print 'False: 4'
+                  print 'False: 4'
                   return False
       
       else:
-        if not self.simulation.positionIsInTrace('PlantPiecesRoad', new_coordonates) and self.simulation.positionIsInTrace('PlantPiecesRoad', self.brain.host.getPosition()):
-          #print 'False: 5'
+        #if not self.simulation.positionIsInTrace('PlantPiecesRoad', new_coordonates) and self.simulation.positionIsInTrace('PlantPiecesRoad', self.brain.host.getPosition()):
+        # s'eloigne du prochain point de la trace
+        if self.isGoingAwayFromRoad(new_coordonates):
+          print 'False: 5'
           return False
     return True
   
   def isGoingAwayFromRoad(self, new_coordonates):
     if self.brain.trace_following != None:
       point = self.brain.trace_following.coordonates[self.brain.trace_following_point]
+      
+      print 'IS AWAY ?: ' + \
+      str(self.brain.trace_following.getDistanceFromPoint(new_coordonates, point))+' > '+str(self.brain.trace_following.getDistanceFromPoint(self.brain.host.getPosition(), point))
+      
       if self.brain.trace_following.getDistanceFromPoint(new_coordonates, point) > self.brain.trace_following.getDistanceFromPoint(self.brain.host.getPosition(), point):
         return True
     return False

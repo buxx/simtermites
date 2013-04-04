@@ -10,4 +10,4 @@ class TakePlantPiece(Take):
   
   def do(self):
     Take.do(self)
-    self.brain.connectToTrace('PlantPiecesRoad', self.simulation)
+    self.brain.connectToTrace('PlantPiecesRoad', self.simulation, 1)

@@ -15,6 +15,7 @@ class Worker(Termite):
   # tmp optimisation suivis trace
   trace_following = None
   trace_following_point = None
+  trace_following_way = 1
   
   def __init__(self, host, work = None):
     Termite.__init__(self, host)
@@ -40,11 +41,11 @@ class Worker(Termite):
         if plant_zone != None :
           if plant_zone.positionIsInArea(self.host.getPosition()):
             if self.host.object_carried == None:
-              # TEST
+              # 
               #simulation.core.pygame.draw_pixels((130, 130, 130), TraceManipulator.getEnlargedTrace(self.host.long_trace, 10))
               simulation.addTraceZone(PlantPiecesTrace(self.host.long_trace, 10, 'TODO: id ou pas ici ?'), 'PlantPiecesRoad')
               self.host.long_trace = deque()
-              # END TEST
+              # 
               return TakePlantPiece(simulation, self, self.host)
       if ZoneConnector.objectMatchWithActionZone('Worker', 'Fooding', 'PlantRepository'):
         # TODO: ce code ne permet qu'une zone de ce type, il faudra
@@ -59,7 +60,7 @@ class Worker(Termite):
                   return PutPlantPiece(simulation, self, self.host, self.host.object_carried)
     return None
   
-  def connectToTrace(self, trace_class, simulation):
+  def connectToTrace(self, trace_class, simulation, way):
     current_distance = None
     current_point = None
     current_trace = None
@@ -71,19 +72,35 @@ class Worker(Termite):
             current_distance = distance_from_point
             current_point = trace_zone.coordonates.index(point)
             current_trace = trace_zone
+            
     self.trace_following = current_trace
     self.trace_following_point = current_point
-    self.checkRoadProgress()
+    self.trace_following_way = way
+    
+    # tmp
+    simulation.core.pygame.draw_circle((69, 128, 107), self.trace_following.coordonates[current_point], 5, 0)
+    self.checkRoadProgress(simulation)
   
-  def checkRoadProgress(self):
+  def checkRoadProgress(self,      simulation):
     if self.trace_following != None:
       point = self.trace_following.coordonates[self.trace_following_point]
       if self.trace_following.positionIsNearPoint(self.host.getPosition(), point):
-        self.aimForNextPointInRoad()
-  
-  def aimForNextPointInRoad(self):
-    if self.trace_following_point+1 in self.trace_following.coordonates:
-      self.trace_following_point += 1
+        self.aimForNextPointInRoad(simulation)
+        
+  def aimForNextPointInRoad(self, simulation):
+    
+    new_index = self.trace_following_point + self.trace_following_way
+    
+    if new_index > -1 and new_index < len(self.trace_following.coordonates):
+      self.trace_following_point = new_index
+      
+      simulation.core.pygame.draw_circle((69, 128, 107), self.trace_following.coordonates[self.trace_following_point], 5, 0)
+      
     else:
       self.trace_following_point = None
       self.trace_following = None
+  
+  def stopFollowingRoute(self):
+    self.trace_following = None
+    self.trace_following_point = None
+    self.trace_following_way = 1

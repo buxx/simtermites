@@ -16,6 +16,7 @@ class TraceZone(Zone):
       new_coordonates.append(coordonates[current_step])
       current_step += width
     
+    new_coordonates.append(coordonates[len(coordonates)-1])
     self.coordonates = new_coordonates
     self.width = width
   
