@@ -43,5 +43,8 @@ class Pygame(object):
     for coordonate in coordonates:
       self.colorizer.colorizePixel(coordonate, color)
   
+  def clean_screen(self):
+    pygame.draw.rect(self.screen, (0, 0, 0), (0,0, Configuration.CONF_SCREEN_WIDTH, Configuration.CONF_SCREEN_HEIGHT), 0)
+  
   def getLabel(self, text, color = (255,255,0)):
     return self.default_font.render(text, 1, color)

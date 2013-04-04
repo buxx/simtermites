@@ -64,5 +64,5 @@ class Object(object):
       return True
     return False
   
-  def hasMoved(self, new_coordonates,      simulation):
+  def hasMoved(self, new_coordonates):
     pass

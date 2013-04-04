@@ -92,6 +92,7 @@ class Configuration(object):
   }
   
   MAX_PLANTPIECE_ROADS = 5
+  MAX_TERMITE_NO_FOLLOWING_ROUTE = 75 # cycles
   
   def setConfiguration(self, configuration_id, configuration_value):
     setattr(self, configuration_id, configuration_value)

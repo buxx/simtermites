@@ -42,6 +42,11 @@ class PlayerWindow(threading.Thread):
     self.vbox.pack_start(self.button_routes, True, True, 0)
     self.button_routes.show()
     
+    self.button_clean = gtk.Button('clean screen')
+    self.button_clean.connect("clicked", self.cleanScreen)
+    self.vbox.pack_start(self.button_clean, True, True, 0)
+    self.button_clean.show()
+    
     self.updatePlayerConfigurations(None, None, False)
     
     gtk.main()
@@ -110,3 +115,6 @@ class PlayerWindow(threading.Thread):
   
   def drawAllRoads(self, widget = None, data = None):
     self.core.ask_draw_roads = True
+  
+  def cleanScreen(self, widget = None, data = None):
+    self.core.pygame.clean_screen()

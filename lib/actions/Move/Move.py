@@ -19,7 +19,7 @@ class Move(Action):
   
   def do(self):
     self.simulation.mover.move(self.brain.host, self)
-    self.brain.host.hasMoved(self.new_coordonates,      self.simulation)
+    self.brain.host.hasMoved(self.new_coordonates)
   
   def determineDirection(self, refused_coordonates_count = 0):
     self.getNewDirection()
@@ -49,34 +49,34 @@ class Move(Action):
           
           # sors de PlantRepository
           if not self.simulation.positionIsInArea('PlantRepository', new_coordonates) and self.simulation.positionIsInArea('PlantRepository', self.brain.host.getPosition()):
-            print 'False: 1'
             return False
           else:
             # dans forteresse mais pas dans PlantRepository
             if self.simulation.positionIsInArea('Fortress', self.brain.host.getPosition()) and not self.simulation.positionIsInArea('PlantRepository', self.brain.host.getPosition()):
               # s'eloigne de PlantRepository
               if self.simulation.getDistanceFromArea('PlantRepository', new_coordonates) > self.simulation.getDistanceFromArea('PlantRepository', self.brain.host.getPosition()):
-                print 'False: 2'
                 return False
             else:
               # s'eloigne de PlantPiecesRoad
               # todo: s'eloigne de prochain point de la trace
               #if not self.simulation.positionIsInTrace('PlantPiecesRoad', new_coordonates) and self.simulation.positionIsInTrace('PlantPiecesRoad', self.brain.host.getPosition()):
               if self.isGoingAwayFromRoad(new_coordonates):
-                print 'False: 3'
                 return False
               # n'est pas dans PlantRepository
               elif not self.simulation.positionIsInArea('PlantRepository', self.brain.host.getPosition()):
                 # s'eloigne de Fortress
                 if self.simulation.getDistanceFromArea('Fortress', new_coordonates) > self.simulation.getDistanceFromArea('Fortress', self.brain.host.getPosition()) and refused_coordonates_count < 3:
-                  print 'False: 4'
                   return False
       
       else:
+        
+        # test si pas de soute suivis, on en demande une afin que toutes les termites aille dans ces traces!
+        if self.brain.noTraceFollowingSinceTooLong():
+          self.brain.connectToTrace('PlantPiecesRoad', self.simulation, -1)
+        
         #if not self.simulation.positionIsInTrace('PlantPiecesRoad', new_coordonates) and self.simulation.positionIsInTrace('PlantPiecesRoad', self.brain.host.getPosition()):
         # s'eloigne du prochain point de la trace
         if self.isGoingAwayFromRoad(new_coordonates):
-          print 'False: 5'
           return False
     return True
   
@@ -84,8 +84,12 @@ class Move(Action):
     if self.brain.trace_following != None:
       point = self.brain.trace_following.coordonates[self.brain.trace_following_point]
       
-      print 'IS AWAY ?: ' + \
-      str(self.brain.trace_following.getDistanceFromPoint(new_coordonates, point))+' > '+str(self.brain.trace_following.getDistanceFromPoint(self.brain.host.getPosition(), point))
+      # Palliatif: Il arrive que la position actuelle soir a 0 de distance du point objectif.
+      # bizarrement on est pas passe au point suivant, du coup on le fait de force maintenant
+      if self.brain.trace_following.getDistanceFromPoint(self.brain.host.getPosition(), point) == 0:
+        self.brain.aimForNextPointInRoad()
+        return self.isGoingAwayFromRoad(new_coordonates)
+      # 
       
       if self.brain.trace_following.getDistanceFromPoint(new_coordonates, point) > self.brain.trace_following.getDistanceFromPoint(self.brain.host.getPosition(), point):
         return True

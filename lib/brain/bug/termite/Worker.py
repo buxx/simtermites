@@ -4,6 +4,7 @@ from lib.actions.TakePlantPiece import TakePlantPiece
 from lib.actions.PutLarva import PutLarva
 from lib.actions.PutPlantPiece import PutPlantPiece
 from lib.tool.TraceManipulator import TraceManipulator
+from config.Configuration import Configuration
 
 from lib.simulation.ZoneConnector import ZoneConnector
 from lib.simulation.zone.PlantPiecesTrace import PlantPiecesTrace
@@ -16,6 +17,7 @@ class Worker(Termite):
   trace_following = None
   trace_following_point = None
   trace_following_way = 1
+  trace_following_not = 0
   
   def __init__(self, host, work = None):
     Termite.__init__(self, host)
@@ -78,23 +80,24 @@ class Worker(Termite):
     self.trace_following_way = way
     
     # tmp
-    simulation.core.pygame.draw_circle((69, 128, 107), self.trace_following.coordonates[current_point], 5, 0)
-    self.checkRoadProgress(simulation)
+    #simulation.core.pygame.draw_circle((69, 128, 107), self.trace_following.coordonates[current_point], 5, 0)
+    
+    self.checkRoadProgress()
   
-  def checkRoadProgress(self,      simulation):
+  def checkRoadProgress(self):
     if self.trace_following != None:
       point = self.trace_following.coordonates[self.trace_following_point]
       if self.trace_following.positionIsNearPoint(self.host.getPosition(), point):
-        self.aimForNextPointInRoad(simulation)
+        self.aimForNextPointInRoad()
         
-  def aimForNextPointInRoad(self, simulation):
+  def aimForNextPointInRoad(self):
     
     new_index = self.trace_following_point + self.trace_following_way
     
     if new_index > -1 and new_index < len(self.trace_following.coordonates):
       self.trace_following_point = new_index
       
-      simulation.core.pygame.draw_circle((69, 128, 107), self.trace_following.coordonates[self.trace_following_point], 5, 0)
+      #simulation.core.pygame.draw_circle((69, 128, 107), self.trace_following.coordonates[self.trace_following_point], 5, 0)
       
     else:
       self.trace_following_point = None
@@ -104,3 +107,9 @@ class Worker(Termite):
     self.trace_following = None
     self.trace_following_point = None
     self.trace_following_way = 1
+  
+  def noTraceFollowingSinceTooLong(self):
+    if self.trace_following_not >= Configuration.MAX_TERMITE_NO_FOLLOWING_ROUTE:
+      self.trace_following_not = 0
+      return True
+    self.trace_following_not += 1
