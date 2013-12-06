@@ -8,4 +8,3 @@ REQUIREMENTS:
  
   * pygame
   * gtk (and pyGTK)
-
