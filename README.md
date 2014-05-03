@@ -15,4 +15,4 @@ On debian-likes:
 
 ```
 sudo apt-get install python python-pygame python-gtk2
-```=
+```
