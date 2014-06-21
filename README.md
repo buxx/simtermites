@@ -1,4 +1,4 @@
-Expérience de simulation de termites.
+Expérience de simulation d'intelligence collective.
 
 ![ScreenShot](https://raw.github.com/buxx/simtermites/master/doc/simtermites.gif)
 
