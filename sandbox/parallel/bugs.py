@@ -9,6 +9,7 @@ from multiprocessing import Process, Pipe, current_process
 from multiprocessing.connection import wait
 from random import choice
 from multiprocessing import Pool
+import timeit
 
 def chunk(seq,m):
    i,j,x=len(seq),0,[]
@@ -39,13 +40,8 @@ def run_worker(w, bugs):
   worker.action_them()
   w.send(worker.bugs)
 
-def computer(n=100, nb_process=2):
-  
-  bugs = []
-  for i in range(n):
-    bugs.append(Bug(i))
-  bugs_iterables = chunk(bugs, nb_process)
-  
+def computer(bugs, nb_process=4):
+  bugs_iterables = chunk(bugs, nb_process)  
   readers = []
   for i in range(nb_process):
     r, w = Pipe(duplex=False)
@@ -62,6 +58,20 @@ def computer(n=100, nb_process=2):
         readers.remove(r)
       else:
         for bug in bugs_sendeds:
-          print(bug.id, bug.willmove)
+          pass#print(bug.id, bug.willmove)
 
-computer()
+def compute(bugs, nb_process=4, cycles=1):
+  for i in range(cycles):
+    computer(bugs=bugs, nb_process=nb_process)
+
+n=25000
+bugs = []
+for i in range(n):   
+  bugs.append(Bug(i))
+
+print('4 processs, 01 cycles: ', timeit.timeit('compute(bugs, nb_process=4)', number=10, setup='from __main__ import bugs,chunk,Bug,SimpleWorker,run_worker,computer,compute'))
+print('1 processs, 01 cycles: ', timeit.timeit('compute(bugs, nb_process=1)', number=10, setup='from __main__ import bugs,chunk,Bug,SimpleWorker,run_worker,computer,compute'))
+
+print('4 processs, 25 cycles: ', timeit.timeit('compute(bugs, nb_process=4, cycles=25)', number=10, setup='from __main__ import bugs,chunk,Bug,SimpleWorker,run_worker,computer,compute'))
+print('1 processs, 25 cycles: ', timeit.timeit('compute(bugs, nb_process=1, cycles=25)', number=10, setup='from __main__ import bugs,chunk,Bug,SimpleWorker,run_worker,computer,compute'))
+
