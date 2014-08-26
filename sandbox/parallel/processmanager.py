@@ -98,6 +98,8 @@ class KeepedAliveProcessManager(object):
 def run_keeped_process(target, main_write_pipe, process_read_pipe, things):
   things_dones = target(things)
   main_write_pipe.send(things_dones)
+  del things_dones
+  del things
   
   new_things = None
   readers = [process_read_pipe]
