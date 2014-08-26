@@ -7,6 +7,13 @@ if sys.version_info < (3, 3):
 from multiprocessing import Process, Pipe
 from multiprocessing.connection import wait
 
+def chunk(seq,m):
+   i,j,x=len(seq),0,[]
+   for k in range(m):
+     a, j = j, j + (i+k)//m
+     x.append(seq[a:j])
+   return x
+
 class ProcessManager(object):
   def __init__(self, nb_process, target):
     self.processs = []
@@ -14,13 +21,13 @@ class ProcessManager(object):
     self.nb_process = nb_process
     self.readers_pipes = []
     self.writers_pipes = []
-  def _start(self, things_to_do):
+  def _start(self, chunked_things):
     for i in range(self.nb_process):
       local_read_pipe, local_write_pipe = Pipe(duplex=False)
       process_read_pipe, process_write_pipe = Pipe(duplex=False)
       self.readers_pipes.append(local_read_pipe)
       self.writers_pipes.append(process_write_pipe)
-      p = Process(target=run_process, args=(self.target, local_write_pipe, process_read_pipe, things_to_do))
+      p = Process(target=run_process, args=(self.target, local_write_pipe, process_read_pipe, chunked_things[i]))
       p.start()
       self.processs.append(p)
       local_write_pipe.close()
@@ -30,12 +37,13 @@ class ProcessManager(object):
       writer_pipe.send('stop')
   
   def get_their_work(self, things_to_do):
+    chunked_things = chunk(things_to_do, self.nb_process)
     if not self.processs:
-      self._start(things_to_do)
+      self._start(chunked_things)
     else:
-      for writer_pipe in self.writers_pipes:
-        print('send things')
-        writer_pipe.send(things_to_do)
+      for i in range(self.nb_process):
+        #print('send things')
+        self.writers_pipes[i].send(chunked_things[i])
     things_done_collection = []
     reader_useds = []
     while self.readers_pipes:
@@ -63,11 +71,11 @@ def run_process(target, main_write_pipe, process_read_pipe, things):
     for r in wait(readers):
       try:
         new_things = r.recv()
-        print('p: things received')
+        #print('p: things received')
       except EOFError:
         pass
       finally:
         readers.remove(r)
-  print('p: continue')
+  #print('p: continue')
   if new_things != 'stop':
     run_process(target, main_write_pipe, process_read_pipe, new_things)
