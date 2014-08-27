@@ -33,8 +33,6 @@ bugs = []
 for i in range(X):   
   bugs.append(Bug(i))
 
-sys.setrecursionlimit(2000)
-
 def compute_keep_alive(bugs, nb_process=1, repeat=1):
   process_manager = KeepedAliveProcessManager(nb_process, run_worker)
   for i in range(repeat):
