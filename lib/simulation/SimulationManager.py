@@ -99,11 +99,11 @@ class SimulationManager(object):
   
   def addObjectPositionInGrid(self, object):
     if object.carried_by == None:
-      position_key = str(object.getPosition()[0])+'.'+str(object.getPosition()[1])
-      if position_key in self.objects_positions_grid:
-        self.objects_positions_grid[position_key].append(object)
+      position = object.getPosition()
+      if position in self.objects_positions_grid:
+        self.objects_positions_grid[position].append(object)
       else:
-        self.objects_positions_grid[position_key] = [object]
+        self.objects_positions_grid[position] = [object]
   
   def addNewObjectToSimulation(self, position, object, increase_statistics_data = True):
     if increase_statistics_data == True:
@@ -121,9 +121,8 @@ class SimulationManager(object):
     possibles_coordonates = get_near_coordonates_for_position(position_ref, distance, allow_same_position)
     
     for coordonate in possibles_coordonates:
-      coordonate_key = str(coordonate[0])+'.'+str(coordonate[1])
-      if coordonate_key in self.objects_positions_grid_previous_cycle:
-        for object in self.objects_positions_grid_previous_cycle[coordonate_key]:
+      if coordonate in self.objects_positions_grid_previous_cycle:
+        for object in self.objects_positions_grid_previous_cycle[coordonate]:
           if object.__class__.__name__ == object_class:
             return object
 
