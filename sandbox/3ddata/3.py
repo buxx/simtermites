@@ -73,11 +73,18 @@ def get_str_map(bugs):
       map[str(trace_point[0])+'.'+str(trace_point[1])+'.'+str(trace_point[2])] = bug
   return map
 
+def get_tuple_map(bugs):
+  map = {}
+  for bug in bugs:
+    for trace_point in bug.trace:
+      map[trace_point] = bug
+  return map
+
 def get_int_map(bugs):
   map = {}
   for bug in bugs:
     for trace_point in bug.trace:
-      key = trace_point[0]*1000000+trace_point[1]*1000+trace_point[2]
+      key = trace_point[0]*100000+trace_point[1]*100+trace_point[2]
       map[key] = bug
   return map
 
@@ -106,6 +113,15 @@ def find_collisions_str_map(bugs, map_str):
           collisions_bugs.append(map_str[key])
   return collisions_bugs
 
+def find_collisions_tuple_map(bugs, map):
+  collisions_bugs = []
+  for bug in bugs:
+    for trace_point in bug.get_possibles_future_trace_point():
+      if trace_point in map:
+        if map[trace_point].id != bug.id:
+          collisions_bugs.append(map[trace_point])
+  return collisions_bugs
+
 
 def find_collisions_int_map(bugs, map_str):
   collisions_bugs = []
@@ -130,16 +146,13 @@ def find_collisions_3d_map(bugs, map):
             collisions_bugs.append(map[x][y][z])
   return collisions_bugs
 
-bugs = get_positioned_bugs(50000)
+bugs = get_positioned_bugs(100000)
 map_str = get_str_map(bugs)
 map_int = get_int_map(bugs)
 map_3d = get_3d_map(bugs)
-
-#for bug in bugs:
-#  print(bug.trace)
-#
-#print(map_3d)
+map_tuple = get_tuple_map(bugs)
 
 print('str', timeit.timeit('find_collisions_str_map(bugs, map_str)', number=10, setup='from __main__ import find_collisions_str_map, bugs, map_str'))
 print('int', timeit.timeit('find_collisions_int_map(bugs, map_int)', number=10, setup='from __main__ import find_collisions_int_map, bugs, map_int'))
 print('3d ', timeit.timeit('find_collisions_3d_map(bugs, map_3d)', number=10, setup='from __main__ import find_collisions_3d_map, bugs, map_3d'))
+print('tup', timeit.timeit('find_collisions_tuple_map(bugs, map_tuple)', number=10, setup='from __main__ import find_collisions_tuple_map, bugs, map_tuple'))
