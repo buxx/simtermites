@@ -3,6 +3,7 @@ Expérience de simulation d'intelligence collective.
 ![ScreenShot](https://raw.github.com/buxx/simtermites/master/doc/simtermites.gif)
 
 Tracker and wiki : http://work.bux.fr/projects/termitessim/wiki/Wiki
+
 **Note**: Un projet de framework permettant l'écriture de programme de type synergique est en cours d'écriture. A terme simermites devrait être réécrit avec ce framework: [Synergine](https://github.com/buxx/synergine)
 
 REQUIREMENTS:
